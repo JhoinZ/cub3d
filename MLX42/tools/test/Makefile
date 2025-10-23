@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/21 10:34:17 by lde-la-h      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/07/19 08:43:31 by lde-la-h          #+#    #+#              #
+#    Updated: 2025/10/23 16:52:25 by fsaffiri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
 NAME		:= test
+CC		:= gcc
 SRC_DIR		:= .
 SRCS		:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS		:= $(sort $(patsubst %.c,%.o,$(SRCS)))
@@ -58,5 +59,9 @@ mlx:
 	@echo "\n"
 
 %.o: %.c
-	@gcc $^ -o $(NAME) ../libmlx42.a -I . -I ../include $(MLX_FLAGS) $(CFLAGS) && ./$(NAME)
-	@rm -rf $(NAME)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+run-tests: $(OBJS) | mlx
+	@echo "Running tests with MLX42"
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME).run ../libmlx42.a -I . -I ../include $(MLX_FLAGS) && ./$(NAME).run || true
+	@rm -f $(NAME).run

@@ -36,23 +36,30 @@ echo "/*   Created: 2022/02/17 22:34:59 by W2wizard      #+#    #+#             
 echo "/*   Updated: 2022/02/17 22:34:59 by W2wizard      ########   odam.nl         */"
 echo "/*                                                                            */"
 echo "/* ************************************************************************** */"
-echo ""
+echo
 echo "// If you wish to modify this file edit the .vert or .frag file!"
-echo ""
+echo
 echo "#include \"MLX42/MLX42_Int.h\""
-echo ""
-echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' $1)\\n\""
-{
-	# Skip over first line
-	read
-	while IFS= read -r LINE; do
-		if [ ! "${LINE}" = "" ]; then
-			if [ "${LINE}" = "}" ]; then
-				echo "	\"${LINE}\";"
-			else
-				echo "	\"${LINE}\""
-			fi
+echo
+echo -n "const char* ${SHADERTYPE}_shader = \""
+
+# Read the shader file and print each line escaped, preserving empty lines
+first=1
+while IFS= read -r LINE || [ -n "$LINE" ]; do
+	# Escape backslashes and double quotes
+	esc=$(printf '%s' "$LINE" | sed -e 's/\\\\/\\\\\\\\/g' -e 's/\"/\\\\\"/g')
+	if [ "$first" -eq 1 ]; then
+		# first line: print and continue
+		printf '%s\\n"' "$esc"
+		first=0
+	else
+		if [ "$esc" = "" ]; then
+			printf '\n\t"\\n"'
+		else
+			printf '\n\t"%s\\n"' "$esc"
 		fi
-	done
-} < "$1"
+	fi
+done < "$1"
+
+echo ";"
 exit 0
