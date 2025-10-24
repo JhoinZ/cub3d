@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:37 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/24 11:52:53 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/24 18:44:12 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,25 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}	t_data;
+
+typedef struct	s_player {
+	int	posX;
+	int posY;
+} t_player;
 
 typedef struct s_game {
-	void	*mlx;
-	void	*win;
-	t_data	img;
-	double	player_x;
-	double	player_y;
-	int		frame_count;
-	
-}				t_game;
-
+	void		*mlx;
+	void		*win;
+	t_data		img;
+	t_player	player;
+	int			frame_count;
+}	t_game;
 
 /* Hook functions */
 int	xclose(t_game *game);
-int	key_hook(int keycode, t_game *game);
+int	key_press(int keycode, t_game *game);
+int	key_release(int keycode, t_game *game);
 
 /* Graphic functions */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -57,6 +60,7 @@ int		create_trgb(int t, int r, int g, int b);
 void	draw_torch(t_data *img, int x, int y, int flame_color);
 void	draw_with_shading(t_data *data);
 void	draw_square(t_data *img, int x, int y, int size, int color);
+void	draw_square2(t_data *img, int x, int y, int size, int color);
 void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
 void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
 void	animate_torch_smooth(t_data *img, int x, int y, float time);

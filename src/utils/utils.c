@@ -1,7 +1,7 @@
 
 #include "../../includes/cub3d.h"
 
-void    display_error(int n, char *msg)
+void	display_error(int n, char *msg)
 {
 	ft_putstr_fd("\n========= \033[0;31mError\033[0m =========\n", 2);
 	if (n == 0 && msg)

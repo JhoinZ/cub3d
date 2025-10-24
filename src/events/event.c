@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/23 16:33:54 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/24 18:31:35 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,17 @@ int	xclose(t_game *game)
 	return (0);
 }
 
-// Main function when a key is clicked
-int	key_hook(int keycode, t_game *game)
+// Main function when a key is pressed
+int	key_press(int keycode, t_game *game)
+{
+	if (keycode == KEY_ESC)
+		xclose(game);
+    printf("Kecode of the key pressed: %d\n", keycode);
+	return (0);
+}
+
+// Main function when a key is released
+int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		xclose(game);
