@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "cub3d.h": "c",
+        "time.h": "c",
+        "struct_timeval.h": "c",
+        "types.h": "c"
+    }
+}
