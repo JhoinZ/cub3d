@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/25 16:28:05 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/26 19:10:15 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,15 @@ typedef struct	s_tools
 }	t_tools;
 
 /* parsing functions */
-int ft_parse_file(const char *path, t_tools *tools);
+void	ft_full_parsing(char **av, int ac, t_tools *tools);
 char	*ft_parse_config(int fd, t_tools *tools);
-int ft_create_map(char **lines, int nlines, t_tools *tools);
-int ft_validate_map_closure(t_tools *tools);
-void	ft_checkspace(char *line);
+void	ft_texture(char *data, t_tools *tools, char *id);
+void	ft_color(char *data, t_tools *tools, char *id);
+
+/* utils parsing */
+int		ft_checkspace(char *line);
+int		ft_endwith(char *str, char *suffix);
+char	*ft_skipspace(char *str);
 
 
 #endif
