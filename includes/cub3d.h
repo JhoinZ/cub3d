@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/26 20:35:05 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/27 16:35:15 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_full_parsing(char **av, int ac, t_tools *tools);
 void	ft_texture(char *data, t_tools *tools, char *id);
 void	ft_color(char *data, t_tools *tools, char *id);
 void	ft_create_map(char *map_buffer, t_tools *tools);
+void	ft_validate_map(t_tools *tools);
 
 /* utils parsing */
 int		ft_checkspace(char *line);
@@ -72,5 +73,8 @@ int		ft_endwith(char *str, char *suffix);
 char	*ft_skipspace(char *str);
 int		ft_check_argv(char **av, int ac);
 void	ft_init_tools(t_tools *tools);
+
+/* Error */
+void	ft_error();
 
 #endif

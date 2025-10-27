@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/24 17:23:00 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:39:08 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,9 @@ int	main(char **av, int ac)
 {
 	t_tools	tools;
 
-	ft_full_parsing(av, ac, tools);
+	ft_full_parsing(av, ac, &tools);
+	ft_init_player_vectors(&tools);
+	ft_setup_mlx_and_game(&tools);
+	ft_run_game_loop(&tools);
+	return (0);
 }
