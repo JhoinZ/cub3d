@@ -1,30 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   startgame.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/27 19:09:05 by fsaffiri         ###   ########.fr       */
+/*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
+/*   Updated: 2025/10/27 18:43:08 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	ft_free_mem(t_tools *tools)
-{
-	if (tools->mlx_ptr != NULL)
-	{
-		if (tools->win_ptr != NULL)
-			mlx_dele(tools->mlx_ptr, tools->win_ptr);
-	}
-}
-
-void	ft_error(int error_code, t_tools *tools)
-{
-	printf("Error: ");
-	printf("%d", error_code);
-	ft_free_mem(tools);
-	exit(EXIT_FAILURE);
-}

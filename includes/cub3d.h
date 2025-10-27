@@ -6,12 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/27 16:35:15 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:50:40 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
+
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
@@ -22,6 +23,18 @@
 #include "../Libft/libft.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
+/* errori */
+#define ERR_USAGE       1  // Uso: Argomenti non validi
+#define ERR_FILE_EXT    2  // File: Estensione file non corretta
+#define ERR_FILE_OPEN   3  // File: Impossibile aprire/leggere
+#define ERR_MLX_INIT    4  // MLX: mlx_init fallito
+#define ERR_SYNTAX      10 // Parsing: Riga non riconosciuta, sintassi
+#define ERR_DUP_TEX     11 // Parsing: Texture/Colore duplicato
+#define ERR_MISS_ELEM   12 // Parsing: Elementi di configurazione mancanti
+#define ERR_MAP_CHARS   20 // Mappa: Caratteri non validi
+#define ERR_PLAYER_NUM  21 // Mappa: Numero di giocatori errato
+#define ERR_MAP_ALLOC   22 // Memoria: Fallita allocazione mappa
+#define ERR_MAP_NOT_CLO 23 // Mappa: Non chiusa (Flood Fill)
 
 typedef struct	s_rgb
 {
