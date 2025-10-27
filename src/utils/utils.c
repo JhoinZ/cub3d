@@ -12,12 +12,23 @@ void	display_error(int n, char *msg)
 	}
 }
 
+void	free_map(t_map *map)
+{
+	if (map && map->grid)
+	{
+		free(map->grid);
+		map->grid = NULL;
+	}
+}
+
 void	clean_exit(int n, t_game *game, char *msg)
 {
 	if (n != 0)
 		display_error(0, msg);
 	if (!game)
 		exit(n);
+	if (game->map.grid)
+		free_map(&game->map);
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->win)

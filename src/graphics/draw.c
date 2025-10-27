@@ -105,3 +105,18 @@ void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color)
 		y++;
 	}
 }
+
+void	draw_ray(t_game *game, double dirX, double dirY, int color)
+{
+	double	ray_x;
+	double	ray_y;
+
+	ray_x = game->player.posX;
+	ray_y = game->player.posY;
+	while (!touch(ray_x, ray_y, game))
+	{
+		my_mlx_pixel_put(&game->img, ray_x, ray_y, color);
+		ray_x += dirX;
+		ray_y += dirY;
+	}
+}

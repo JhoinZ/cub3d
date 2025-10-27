@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/24 18:31:35 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/26 19:58:27 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@ int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		xclose(game);
-    printf("Kecode of the key pressed: %d\n", keycode);
+	else if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S ||
+			keycode == KEY_D)
+		player_move(game, keycode);
+	else if (keycode == KEY_LEFT)
+		rot_move(&game->player, 1);
+	else if (keycode == KEY_RIGHT)
+		rot_move(&game->player, -1);
+	else
+   		printf("Kecode of the key pressed: %d\n", keycode);
 	return (0);
 }
 
@@ -33,7 +41,6 @@ int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		xclose(game);
-    printf("Kecode of the key pressed: %d\n", keycode);
 	return (0);
 }
 

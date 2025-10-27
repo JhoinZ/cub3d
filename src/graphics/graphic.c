@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/24 18:37:29 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/25 09:39:04 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	clear_screen(t_game *game, int color)
 {
 	draw_rectangle(&game->img, 0, 0, WIDTH, HEIGHT, color);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
 // Example usage of shading with squares code
