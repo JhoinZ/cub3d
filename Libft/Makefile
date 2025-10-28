@@ -66,13 +66,15 @@ OFILES_PRINTF = $(CFILES_PRINTF:.c=.o)
 
 OFILES_GNL = $(CFILES_GNL:.c=.o)
 
+ALL_OFILES = $(OFILES) $(OFILES_BONUS) $(OFILES_PRINTF) $(OFILES_GNL)
+
 NAME = libft.a
 
 
 all: $(NAME)
 
-$(NAME): $(OFILES)
-	ar rcs $(NAME) $(OFILES)
+$(NAME): $(ALL_OFILES)
+	ar rcs $(NAME) $(ALL_OFILES)
 
 bonus:	$(OFILES_BONUS)
 		ar rcs $(NAME) $(OFILES_BONUS)

@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/27 18:50:40 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:21:06 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,14 @@
 #include "../Libft/libft.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
-/* errori */
-#define ERR_USAGE       1  // Uso: Argomenti non validi
-#define ERR_FILE_EXT    2  // File: Estensione file non corretta
-#define ERR_FILE_OPEN   3  // File: Impossibile aprire/leggere
-#define ERR_MLX_INIT    4  // MLX: mlx_init fallito
-#define ERR_SYNTAX      10 // Parsing: Riga non riconosciuta, sintassi
-#define ERR_DUP_TEX     11 // Parsing: Texture/Colore duplicato
-#define ERR_MISS_ELEM   12 // Parsing: Elementi di configurazione mancanti
-#define ERR_MAP_CHARS   20 // Mappa: Caratteri non validi
-#define ERR_PLAYER_NUM  21 // Mappa: Numero di giocatori errato
-#define ERR_MAP_ALLOC   22 // Memoria: Fallita allocazione mappa
-#define ERR_MAP_NOT_CLO 23 // Mappa: Non chiusa (Flood Fill)
+#define RST			"\033[0m"    // Reset per tornare al colore normale
+#define RED			"\033[1;31m" // Rosso brillante
+#define GRN			"\033[1;32m" // Verde brillante
+#define YLW			"\033[1;33m" // Giallo brillante
+#define BLU			"\033[1;34m" // Blu brillante
+#define MGT			"\033[1;35m" // Magenta brillante
+#define CYN			"\033[1;36m" // Ciano brillante
+#define WIT			"\033[1;37m" // Bianco brilla
 
 typedef struct	s_rgb
 {
@@ -88,6 +84,8 @@ int		ft_check_argv(char **av, int ac);
 void	ft_init_tools(t_tools *tools);
 
 /* Error */
-void	ft_error();
+void	ft_error(int error_code, t_tools *tools);
+void	ft_error_light(int error_code);
+void	ft_free_mem(t_tools *tools);
 
 #endif

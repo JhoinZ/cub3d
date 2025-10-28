@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/26 20:33:48 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:34:10 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ char	*ft_parse_config(int fd, t_tools *tools)
 {
 	char	*map_buffer;
 	char	*line;
-	
+
 	map_buffer = NULL;
 	line = NULL;
-	while (17)
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -79,14 +79,14 @@ char	*ft_parse_config(int fd, t_tools *tools)
 			else
 			{
 				free(line);
-				ft_error();
+				ft_error(5, tools);
 			}
 		}
 	}
 	if (tools->elements_count < 6)
-		ft_error();
+		ft_error(7, tools);
 	if (!map_buffer)
-		ft_error();
+		ft_error(3, tools);
 	return (map_buffer);
 }
 

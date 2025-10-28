@@ -6,7 +6,7 @@
 #    By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/21 11:22:13 by fsaffiri          #+#    #+#              #
-#    Updated: 2025/10/23 16:06:50 by fsaffiri         ###   ########.fr        #
+#    Updated: 2025/10/28 12:17:15 by fsaffiri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ BONUS_SRC	= $(shell find $(BONUS_DIR) -name "*.c" -type f 2>/dev/null || true)
 BONUS_OBJ	= $(BONUS_SRC:$(BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Includes
-INCLUDES	= -Iinclude -I$(LIBFT_PATH) -I$(MLX_PATH)/include
+INCLUDES	= -Iincludes -I$(LIBFT_PATH) -I$(MLX_PATH)/include
 
 # Progress bar variables
 TOTAL_FILES = $(words $(SRC))
@@ -113,7 +113,7 @@ $(OBJ_DIR)/%.o: $(BONUS_DIR)/%.c
 
 libft:
 	@echo "$(BLUE)📚 Compiling libft...$(RESET)"
-	@$(MAKE) -C $(LIBFT_PATH) --no-print-directory --silent
+	@$(MAKE) -C $(LIBFT_PATH) re BONUS=1 --no-print-directory --silent
 
 mlx:
 	@echo "$(BLUE)🎨 Building MLX42 (if present)...$(RESET)"

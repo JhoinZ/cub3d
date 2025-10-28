@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:09:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/26 20:12:29 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:04:00 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	ft_check_argv(char **av, int ac)
 	int	fd;
 
 	if (ac != 2)
-		ft_error();
+		ft_error_light(1);
 	else if (!ft_endwith(av[1], ".cub"))
-		ft_error();
+		ft_error_light(2);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		ft_error();
+		ft_error_light(3);
 	return (fd);
 }
 
