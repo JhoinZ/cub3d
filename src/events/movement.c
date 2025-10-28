@@ -47,13 +47,13 @@ void	player_move(t_game *game, int keycode)
 	}
 	if (keycode == KEY_A)
 	{
-		game->player.posX -= game->player.dirY * game->player.move_speed;
-		game->player.posY += game->player.dirX * game->player.move_speed;
+		game->player.posX += game->player.dirY * game->player.move_speed;
+		game->player.posY -= game->player.dirX * game->player.move_speed;
 	}
 	if (keycode == KEY_D)
 	{
-		game->player.posX += game->player.dirY * game->player.move_speed;
-		game->player.posY -= game->player.dirX * game->player.move_speed;
+		game->player.posX -= game->player.dirY * game->player.move_speed;
+		game->player.posY += game->player.dirX * game->player.move_speed;
 	}
 }
 

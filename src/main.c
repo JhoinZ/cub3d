@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:46 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/27 13:52:48 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/28 11:47:41 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_player	init_player(t_game *game)
 	t_player player;
 
 	(void)game;
-	player.posX = 650.0f;
-	player.posY = 530.0f;
+	player.posX = game->map.tile_size * 2 + ((WIDTH - (game->map.tile_size * game->map.width)) / 2) + (game->map.tile_size / 2);
+	player.posY = game->map.tile_size * 4 - (game->map.tile_size / 2);
 	player.dirX = 0;
 	player.dirY = -1;
 	player.planeX = 0.66f;
@@ -54,6 +54,8 @@ t_map	init_map()
 	map.grid[4] = "100100001";
 	map.grid[5] = "100010001";
 	map.grid[6] = "111111111";
+	map.ceiling_color = 0x0074D4FF;
+	map.floor_color = 0x003F3F46;
 	if ((WIDTH / map.width) > (HEIGHT / map.height))
 		map.tile_size = (HEIGHT / map.height);
 	else
@@ -243,20 +245,20 @@ void	draw_multiple_rays(t_game *game, int num_rays)
 	}
 }
 
-void	draw_vertical_line(t_game *game, int x, int length, int color)
+void draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color)
 {
-	int i;
-	int y;
-
-	y = HEIGHT / 2;
-	i = 0;
-	while (i < (length / 2))
-	{
-		my_mlx_pixel_put(&game->img, x, y + i, color);
-		my_mlx_pixel_put(&game->img, x, y - i, color);
-		i++;
-	}
+	int	y;
 	
+	if (start_y < 0)
+		start_y = 0;
+	if (end_y >= HEIGHT)
+		end_y = HEIGHT - 1;
+	y = start_y;
+	while (y <= end_y)
+	{
+		my_mlx_pixel_put(&game->img, x, y, color);
+		y++;
+	}
 }
 
 /* void	draw_scene(t_game *game, int num_rays)
@@ -279,71 +281,81 @@ void	draw_vertical_line(t_game *game, int x, int length, int color)
 
 t_ray_result	cast_ray_dda(t_game *game, double ray_dirX, double ray_dirY)
 {
-	t_ray_result	result;
-    
-    // Player's map position
-    int mapX = (int)game->player.posX;
-    int mapY = (int)game->player.posY;
-    
-    // Length of ray from current position to next x or y-side
-    double deltaDistX = fabs(1 / ray_dirX);
-    double deltaDistY = fabs(1 / ray_dirY);
-    
-    // Direction to step in x or y direction (either +1 or -1)
-    int stepX, stepY;
-    
-    // Length of ray from one side to next in map
-    double sideDistX, sideDistY;
-    
-    // Calculate step and initial sideDist
-    if (ray_dirX < 0) {
-        stepX = -1;
-        sideDistX = (game->player.posX - mapX) * deltaDistX;
-    } else {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - game->player.posX) * deltaDistX;
-    }
-    
-    if (ray_dirY < 0) {
-        stepY = -1;
-        sideDistY = (game->player.posY - mapY) * deltaDistY;
-    } else {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - game->player.posY) * deltaDistY;
-    }
-    
-    // Perform DDA
-    int hit = 0;
-    int side; // 0 for x-side, 1 for y-side
-    
-    while (hit == 0) {
-        // Jump to next map square
-        if (sideDistX < sideDistY) {
-            sideDistX += deltaDistX;
-            mapX += stepX;
-            side = 0;
-        } else {
-            sideDistY += deltaDistY;
-            mapY += stepY;
-            side = 1;
-        }
-        
-        // Check if ray has hit a wall
-        if (game->map.grid[mapY][mapX] > '0')
-            hit = 1;
-    }
-    
-    // Calculate distance projected on camera direction
-    if (side == 0)
-        result.distance = (mapX - game->player.posX + (1 - stepX) / 2) / ray_dirX;
-    else
-        result.distance = (mapY - game->player.posY + (1 - stepY) / 2) / ray_dirY;
-    
-    result.side = side;
-    result.hit_x = game->player.posX + result.distance * ray_dirX;
-    result.hit_y = game->player.posY + result.distance * ray_dirY;
-    
-	return (result);
+	t_ray_result result;
+	
+	// 1. STARTING POSITION - Where the player is on the map grid
+	int mapX = (int)(game->player.posX / game->map.tile_size);  // Current grid cell X
+	int mapY = (int)game->player.posY / game->map.tile_size;  // Current grid cell Y
+	
+	// 2. RAY STEP DIRECTION - Which way to move through the grid
+	int stepX, stepY;
+	
+	// 3. DISTANCE BETWEEN GRID LINES - How far to next vertical/horizontal grid line
+	double deltaDistX = (ray_dirX == 0) ? 1e30 : fabs(1 / ray_dirX);
+	double deltaDistY = (ray_dirY == 0) ? 1e30 : fabs(1 / ray_dirY);
+	
+	// 4. INITIAL DISTANCE TO NEXT GRID LINE
+	double sideDistX, sideDistY;
+	
+	// Calculate initial distances and steps
+	if (ray_dirX < 0) {
+		stepX = -1;  // Moving LEFT
+		sideDistX = (game->player.posX / game->map.tile_size - mapX) * deltaDistX;
+	} else {
+		stepX = 1;   // Moving RIGHT
+		sideDistX = (mapX + 1.0 - game->player.posX / game->map.tile_size) * deltaDistX;
+	}
+	if (ray_dirY < 0) {
+		stepY = -1;  // Moving UP
+		sideDistY = (game->player.posY / game->map.tile_size - mapY) * deltaDistY;
+	} else {
+		stepY = 1;   // Moving DOWN
+		sideDistY = (mapY + 1.0 - game->player.posY / game->map.tile_size) * deltaDistY;
+	}
+	
+	// 5. WALK THROUGH THE GRID UNTIL WE HIT A WALL
+	int hit = 0;
+	int side; // 0 = x-side hit, 1 = y-side hit
+	
+	while (hit == 0) {
+		// Move to next grid square - always move in the direction that's closer
+		if (sideDistX < sideDistY) {
+			// Next vertical grid line is closer
+			sideDistX += deltaDistX;
+			mapX += stepX;
+			side = 0;  // Hit vertical side of wall
+		} else {
+			// Next horizontal grid line is closer
+			sideDistY += deltaDistY;
+			mapY += stepY;
+			side = 1;  // Hit horizontal side of wall
+		}
+		
+		// Check if we hit a wall
+		if (mapY >= 0 && mapY < game->map.height && 
+			mapX >= 0 && mapX < game->map.width) {
+			if (game->map.grid[mapY][mapX] >= '1') {
+				hit = 1;
+			}
+		} else {
+			// We went outside the map
+			hit = 1;
+		}
+	}
+	
+	// 6. CALCULATE THE DISTANCE TO THE WALL
+	if (side == 0) {
+		// Hit vertical wall - calculate distance
+		result.distance = (mapX - game->player.posX / game->map.tile_size + (1 - stepX) / 2) / ray_dirX;
+	} else {
+		// Hit horizontal wall - calculate distance
+		result.distance = (mapY - game->player.posY / game->map.tile_size + (1 - stepY) / 2) / ray_dirY;
+	}
+	result.hit_x = game->player.posX + result.distance * ray_dirX;
+	result.hit_y = game->player.posY + result.distance * ray_dirY;
+	result.side = side;
+	
+	return result;
 }
 
 int choose_color(int side)
@@ -356,7 +368,7 @@ int choose_color(int side)
 
 void	cast_rays(t_game *game)
 {
-	int	x;
+	int		x;
 	double	cameraX;
 	double	ray_dirX;
 	double	ray_dirY;
@@ -370,7 +382,11 @@ void	cast_rays(t_game *game)
 		ray_dirY = game->player.dirY + game->player.planeY * cameraX;
 		t_ray_result ray = cast_ray_dda(game, ray_dirX, ray_dirY);
 		line_height = (int)(HEIGHT / ray.distance);
-		draw_vertical_line(game, cameraX, line_height, choose_color(ray.side));
+		int draw_start = -line_height / 2 + HEIGHT / 2;
+		int draw_end = line_height / 2 + HEIGHT / 2;
+		draw_vertical_line(game, x, draw_start, draw_end, choose_color(ray.side));
+		draw_vertical_line(game, x, 0, draw_start - 1, game->map.ceiling_color);
+        draw_vertical_line(game, x, draw_end + 1, HEIGHT - 1, game->map.floor_color);
 		x++;
 	}
 }
