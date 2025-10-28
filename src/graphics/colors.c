@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/28 11:49:45 by fosuna-g          #+#    #+#             */
+/*   Updated: 2025/10/28 12:06:26 by fosuna-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../includes/cub3d.h"
 
@@ -40,4 +52,12 @@ int	add_shade(double distance, int color)
 	b = (color & 0xFF) * factor;
 	
 	return (0xFF << 24 | (int)r << 16 | (int)g << 8 | (int)b);
+}
+
+int choose_color(int side)
+{
+	if (side == 0) 
+		return 0xFF0000; // Red for x-side (vertical walls)
+	else 
+		return 0x00FF00; // Green for y-side (horizontal walls)
 }

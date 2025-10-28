@@ -3,54 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/25 09:39:04 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:17:49 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	clear_screen(t_game *game, int color)
+void	draw_map(t_game *game)
 {
-	draw_rectangle(&game->img, 0, 0, WIDTH, HEIGHT, color);
+	int i;
+	int	j;
+	int	rel_width = game->map.tile_size;
+	int	rel_hegith = (HEIGHT / game->map.height);
+	int	rel_begin = (WIDTH / 2) - (rel_width * game->map.width / 2);
+	
+	i = 0;
+	(void)game;
+	while (i < game->map.width)
+	{
+		j = 0;
+		while (j < game->map.height)
+		{
+			rel_width = i * game->map.tile_size + rel_begin;
+			rel_hegith = j * game->map.tile_size;
+			if (game->map.grid[j][i] > '0')
+				draw_square(&game->img, rel_width, rel_hegith, game->map.tile_size, 0xFF81D8D0);	
+			else
+				draw_square(&game->img, rel_width, rel_hegith, game->map.tile_size, 0xFF084D6E);	
+			draw_square2(&game->img, rel_width, rel_hegith, game->map.tile_size, 0xFFFFFF);
+			j++;
+		}
+		i++;
+	}
 }
 
-// Example usage of shading with squares code
-void	draw_with_shading(t_data *data)
+void	draw_multiple_rays(t_game *game, int num_rays)
 {
-	int	original_color = 0x00FF0000; // Bright red
-	int	shaded_color;
-	
-	// No shading (full brightness)
-	shaded_color = add_shade(0.0, original_color);
-	draw_square(data, 10, 10, 50, shaded_color);
-	
-	// Half shading
-	shaded_color = add_shade(0.25, original_color);
-	draw_square(data, 70, 10, 50, shaded_color);
-	
-	// Complete shading (black)
-	shaded_color = add_shade(0.5, original_color);
-	draw_square(data, 130, 10, 50, shaded_color);
-	
-	// Quarter shading
-	shaded_color = add_shade(0.75, original_color);
-	draw_square(data, 190, 10, 50, shaded_color);
-}
-
-void	draw_torch(t_data *img, int x, int y, int flame_color)
-{
-	// Draw flame (filled circle)
-	draw_circle(img, x, y, 80, flame_color);
-	
-	// Add inner brighter part
-	draw_circle(img, x + 10, y - 20, 40, flame_color | 0x44FFFFFF);
-	
-	// Draw torch handle (rectangle)
-	draw_rectangle(img, x - 20, y + 80, 40, 200, 0x8B4513); // Brown
-	
-	// Add some details to handle
-	draw_rectangle(img, x - 10, y + 120, 20, 120, 0xA0522D); // Darker brown
+	double	half_fov = 0.66 / 2;
+	double	center_angle = atan2(-game->player.dirY, game->player.dirX);
+	double	left_angle = center_angle - half_fov;
+	double	angle_step = 2 * half_fov / (num_rays - 1);
+	int i = 0;
+	while (i < num_rays)
+	{
+		double ray_angle = left_angle + i * angle_step;
+		double ray_dirX = cos(ray_angle);
+		double ray_dirY = -sin(ray_angle);
+		draw_ray(game, ray_dirX, ray_dirY, 0x00FF00);
+		i++;
+	}
 }

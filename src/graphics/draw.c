@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/28 11:49:50 by fosuna-g          #+#    #+#             */
+/*   Updated: 2025/10/28 12:17:56 by fosuna-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../includes/cub3d.h"
 
@@ -10,100 +22,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
         return;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
-}
-
-void	draw_square(t_data *img, int x, int y, int size, int color)
-{
-	int	i;
-	int	j;
-	
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(img, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_square2(t_data *img, int x, int y, int size, int color)
-{
-	int	i;
-	
-	i = 0;
-	while (i < size)
-	{
-		my_mlx_pixel_put(img, x + i, y, color);
-		my_mlx_pixel_put(img, x, y + i, color);
-		my_mlx_pixel_put(img, x + size, y + i, color);
-		my_mlx_pixel_put(img, x + i, y + size, color);
-		i++;
-	}
-}
-
-/*
-** Draws a filled rectangle
-** @param img: Pointer to image data  
-** @param start_x: Top-left X coordinate
-** @param start_y: Top-left Y coordinate
-** @param width: Width of rectangle
-** @param height: Height of rectangle
-** @param color: Color in 0xAARRGGBB format
-*/
-void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			my_mlx_pixel_put(img, start_x + x, start_y + y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-/*
-** Draws a filled circle using Bresenham's algorithm
-** @param img: Pointer to image data
-** @param center_x: X coordinate of circle center
-** @param center_y: Y coordinate of circle center  
-** @param radius: Radius of the circle
-** @param color: Color in 0xAARRGGBB format
-*/
-void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color)
-{
-	int	x;
-	int	y;
-	int	delta_x;
-	int	delta_y;
-
-	y = -radius;
-	while (y <= radius)
-	{
-		x = -radius;
-		while (x <= radius)
-		{
-			delta_x = x;
-			delta_y = y;
-			// Check if point is within circle using distance formula
-			if (delta_x * delta_x + delta_y * delta_y <= radius * radius)
-			{
-				my_mlx_pixel_put(img, center_x + x, center_y + y, color);
-			}
-			x++;
-		}
-		y++;
-	}
 }
 
 void	draw_ray(t_game *game, double dirX, double dirY, int color)
@@ -119,4 +37,65 @@ void	draw_ray(t_game *game, double dirX, double dirY, int color)
 		ray_x += dirX;
 		ray_y += dirY;
 	}
+}
+
+void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color)
+{
+	int	y;
+	
+	if (start_y < 0)
+		start_y = 0;
+	if (end_y >= HEIGHT)
+		end_y = HEIGHT - 1;
+	y = start_y;
+	while (y <= end_y)
+	{
+		my_mlx_pixel_put(&game->img, x, y, color);
+		y++;
+	}
+}
+
+void	clear_screen(t_game *game, int color)
+{
+	draw_rectangle(&game->img, 0, 0, WIDTH, HEIGHT, color);
+}
+
+/********************************** Examples **********************************/
+
+// Example usage of shading with squares code
+void	draw_with_shading(t_data *data)
+{
+	int	original_color = 0x00FF0000; // Bright red
+	int	shaded_color;
+	
+	// No shading (full brightness)
+	shaded_color = add_shade(0.0, original_color);
+	draw_square(data, 10, 10, 50, shaded_color);
+	
+	// Quarter shading
+	shaded_color = add_shade(0.25, original_color);
+	draw_square(data, 70, 10, 50, shaded_color);
+	
+	// Half shading
+	shaded_color = add_shade(0.5, original_color);
+	draw_square(data, 130, 10, 50, shaded_color);
+
+	// Three quarter shading
+	shaded_color = add_shade(0.75, original_color);
+	draw_square(data, 190, 10, 50, shaded_color);
+}
+
+void	draw_torch(t_data *img, int x, int y, int flame_color)
+{
+	// Draw flame (filled circle)
+	draw_circle(img, x, y, 80, flame_color);
+	
+	// Add inner brighter part
+	draw_circle(img, x + 10, y - 20, 40, flame_color | 0x44FFFFFF);
+	
+	// Draw torch handle (rectangle)
+	draw_rectangle(img, x - 20, y + 80, 40, 200, 0x8B4513); // Brown
+	
+	// Add some details to handle
+	draw_rectangle(img, x - 10, y + 120, 20, 120, 0xA0522D); // Darker brown
 }

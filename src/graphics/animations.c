@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/28 11:49:42 by fosuna-g          #+#    #+#             */
+/*   Updated: 2025/10/28 12:20:34 by fosuna-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../includes/cub3d.h"
 
@@ -20,6 +32,8 @@ int	animation_loop(void *param)
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);
 }
+
+/************************************* Examples *************************************/
 
 void	animate_torch_smooth(t_data *img, int x, int y, float time)
 {

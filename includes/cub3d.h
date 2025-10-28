@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:37 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 11:44:40 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:14:53 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ typedef struct s_map{
 
 typedef struct s_ray_result
 {
-/* 	double	dirX;
+	double	dirX;
 	double	dirY;
 	double	stepX;
 	double	stepY;
-	double	sidedistX;
-	double	sidedistY; */
-	//	Aqui hay una separacion
+	double	deltaDistX;
+	double	deltaDistY;
+	double	sideDistX;
+	double	sideDistY;
 	double	distance;
 	double	hit_x;
 	double	hit_y;
@@ -93,10 +94,13 @@ void	player_move(t_game *game, int keycode);
 int		touch(double px, double py, t_game *game);
 double	ray_dist(t_game *game, double dirX, double dirY);
 
-/* Graphic functions */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+/* Color functions */
 int		add_shade(double distance, int color);
 int		create_trgb(int t, int r, int g, int b);
+int		choose_color(int side);
+
+/* Draw functions */
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_torch(t_data *img, int x, int y, int flame_color);
 void	draw_with_shading(t_data *data);
 void	draw_square(t_data *img, int x, int y, int size, int color);
@@ -104,9 +108,18 @@ void	draw_square2(t_data *img, int x, int y, int size, int color);
 void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
 void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
 void	draw_ray(t_game *game, double dirX, double dirY, int color);
+void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
+void	draw_multiple_rays(t_game *game, int num_rays);
+void	draw_map(t_game *game);
+
+/* Animation functions */
 void	animate_torch_smooth(t_data *img, int x, int y, float time);
 int		animation_loop(void *param);
 void	clear_screen(t_game *game, int color);
+
+/* Raycasting functions */
+void	cast_ray_dda(t_game *game, t_ray_result *ray);
+void	ray_casting_loop(t_game *game);
 
 /* Utils */
 void    display_error(int n, char *msg);
