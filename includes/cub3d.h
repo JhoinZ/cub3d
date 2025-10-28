@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:21:06 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:06:29 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #define BLU			"\033[1;34m" // Blu brillante
 #define MGT			"\033[1;35m" // Magenta brillante
 #define CYN			"\033[1;36m" // Ciano brillante
-#define WIT			"\033[1;37m" // Bianco brilla
+#define WIT			"\033[1;37m" // Bianco brillante
 
 typedef struct	s_rgb
 {

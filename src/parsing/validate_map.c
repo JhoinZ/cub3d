@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:33:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:10:45 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:12:32 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	ft_validate_map(t_tools *tools)
 	char	**tmp_map;
 	
 	tmp_map = ft_copy_map_grid(tools->map_grid, tools);
-	ft_flood_fill(tmp_map, tools->player.pos_x, tools->player.pos_y, tools);
+	ft_flood_fill(tmp_map, (int)tools->player.pos_x, (int)tools->player.pos_y, tools);
 	ft_free_split(tmp_map);
 }

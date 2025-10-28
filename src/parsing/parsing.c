@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:48:05 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:12:51 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_parse_element(char *line,t_tools *tools)
 
 char	*ft_parse_config(int fd, t_tools *tools)
 {
+	size_t	_len;
 	char	*map_buffer;
 	char	*line;
 
@@ -65,6 +66,12 @@ char	*ft_parse_config(int fd, t_tools *tools)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		if (tools->elements_count != 6)
+		{
+			_len = ft_strlen(line);
+			if (_len > 0 && line[_len - 1] == '\n')
+				line[_len - 1] = '\0';
+		}
 		if (ft_checkspace(line))
 			free(line);
 		else
