@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:37 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 17:59:52 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/29 19:08:02 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_game {
 	int			frame_count;
 	int			minimap_scale;
 	int			init_screen;
-	t_data		**texture;
+	t_data		texture[4];
 	t_key_hook	keys;
 }	t_game;
 
@@ -160,7 +160,7 @@ t_map		init_map(void);
 t_player	init_player(t_game *game);
 t_game 		init_game(void);
 void		init_keys(t_game *game);
-void		init_textures(t_game *game);
+int			load_textures(t_game *game);
 
 /* Time functions */
 void		wait(long time_to_sleep);

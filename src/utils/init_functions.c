@@ -1,9 +1,27 @@
 
 #include "../../includes/cub3d.h"
 
-void	init_textures(t_game *game)
+int	load_textures(t_game *game)
 {
-	(void)game;
+	int	i;
+	int	width;
+	int	height;
+	
+	i = 0;
+	while (i < 4)
+	{
+		game->texture[i].img = mlx_xpm_file_to_image(game->mlx, 
+			game->map.textures[i], &width, &height);
+		if (!game->texture[i].img)
+			return (0); // Error loading texture
+		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
+			&game->texture[i].bits_per_pixel, &game->texture[i].line_length,
+			&game->texture[i].endian);
+		game->texture[i].width = width;
+		game->texture[i].height = height;
+		i++;
+	}
+	return (1);
 }
 
 void	init_keys(t_game *game)
