@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:59:16 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 13:21:16 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:01:00 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,22 @@ void	cast_ray_dda(t_game *game, t_ray_result *ray)
 	ray->hit_y = game->player.posY + ray->distance * ray->dirY;
 }
 
-
 void	ray_casting_loop(t_game *game)
 {
-	int				x;
 	t_ray_result	ray;
+	t_vertical		vertical;
 	double			cameraX;
-	int				draw_start;
-	int				draw_end;
 	
-	x = 0;
-	while (x < WIDTH)
+	vertical.x = 0;
+	while (vertical.x < WIDTH)
 	{
-		cameraX = 2 * x / (double)WIDTH - 1;
+		cameraX = 2 * vertical.x / (double)WIDTH - 1;
 		ray.dirX = game->player.dirX + game->player.planeX * cameraX;
 		ray.dirY = game->player.dirY + game->player.planeY * cameraX;
 		cast_ray_dda(game, &ray);
-		draw_start = -((int)(HEIGHT / ray.distance)) / 2 + HEIGHT / 2;
-		draw_end = (int)(HEIGHT / ray.distance) / 2 + HEIGHT / 2;
-		draw_vertical_line(game, x, draw_start, draw_end, choose_color(ray.side));
-		draw_vertical_line(game, x, 0, draw_start - 1, game->map.ceiling_color);
-		draw_vertical_line(game, x, draw_end + 1, HEIGHT - 1, game->map.floor_color);
-		x++;
+		vertical.y_start = -((int)(HEIGHT / ray.distance)) / 2 + HEIGHT / 2;
+		vertical.y_end = (int)(HEIGHT / ray.distance) / 2 + HEIGHT / 2;
+		draw_vertical(game, &vertical, ray);
+		vertical.x++;
 	}
 }

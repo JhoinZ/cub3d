@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 11:49:40 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:40:20 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,66 @@ int	touch(double px, double py, t_game *game)
 	rel_sizemapY = HEIGHT - (game->map.tile_size * game->map.height);
 	x = (px - (rel_sizemapX / 2)) / game->map.tile_size;
 	y = (py - (rel_sizemapY / 2)) / game->map.tile_size;
-	if (game->map.grid[y][x] == '1')
+	if (game->map.grid[y][x] >= '1')
 		return (1);
 	return (0);
 }
 
-void	player_move(t_game *game, int keycode)
+int	touch2(double px, double py, t_game *game)
 {
-	if (keycode == KEY_W)
+	int	mapX;
+	int mapY;
+
+	mapX = (int)(px / game->map.tile_size);
+	mapY = (int)(py / game->map.tile_size);
+	if (game->map.grid[mapY][mapX] >= '1')
+		return (1);
+	return (0);
+}
+
+int	colision(t_game *game, t_player player, int n)
+{
+	if (n == 1)
+	{
+		player.posX += player.dirX * player.move_speed;
+		player.posY += player.dirY * player.move_speed;
+	}
+	else if (n == 2)
+	{
+		player.posX -= player.dirX * player.move_speed;
+		player.posY -= player.dirY * player.move_speed;
+	}
+	else if (n == 3)
+	{
+		player.posX += player.dirY * player.move_speed;
+		player.posY -= player.dirX * player.move_speed;
+	}
+	else
+	{
+		player.posX -= player.dirY * player.move_speed;
+		player.posY += player.dirX * player.move_speed;
+	}
+	return (touch(player.posX, player.posY, game));
+}
+
+void	player_move(t_game *game)
+{
+	if (game->keys.key_w && !colision(game, game->player, 1))
 	{
 		game->player.posX += game->player.dirX * game->player.move_speed;
 		game->player.posY += game->player.dirY * game->player.move_speed;
 	}
-	if (keycode == KEY_S)
+	if (game->keys.key_s && !colision(game, game->player, 2))
 	{		
 		game->player.posX -= game->player.dirX * game->player.move_speed;
 		game->player.posY -= game->player.dirY * game->player.move_speed;
 	}
-	if (keycode == KEY_A)
+	if (game->keys.key_a && !colision(game, game->player, 3))
 	{
 		game->player.posX += game->player.dirY * game->player.move_speed;
 		game->player.posY -= game->player.dirX * game->player.move_speed;
 	}
-	if (keycode == KEY_D)
+	if (game->keys.key_d && !colision(game, game->player, 4))
 	{
 		game->player.posX -= game->player.dirY * game->player.move_speed;
 		game->player.posY += game->player.dirX * game->player.move_speed;

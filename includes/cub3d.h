@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:37 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 13:14:53 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/29 17:59:52 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_data;
 
 typedef struct	s_player {
@@ -55,6 +57,7 @@ typedef struct s_map{
 	int		tile_size;
 	int		floor_color;
 	int		ceiling_color;
+	int		without_directions;
 	char	**textures;
 } t_map;
 
@@ -72,8 +75,30 @@ typedef struct s_ray_result
 	double	hit_x;
 	double	hit_y;
 	int		side;
+	char	type_wall;
 } t_ray_result;
 
+typedef struct s_vertical
+{
+	int		x;
+	int		y_start;
+	int		y_end;
+	int		index;
+	int		tex_x;
+	double	tex_x_normalized;
+} t_vertical;
+
+typedef struct s_key_hook
+{
+	int	key_w;
+	int	key_a;
+	int	key_s;
+	int	key_d;
+	int key_right;
+	int	key_left;
+	int	key_shift;
+	int	key_e;	
+} t_key_hook;
 
 typedef struct s_game {
 	void		*mlx;
@@ -83,6 +108,9 @@ typedef struct s_game {
 	t_map		map;
 	int			frame_count;
 	int			minimap_scale;
+	int			init_screen;
+	t_data		**texture;
+	t_key_hook	keys;
 }	t_game;
 
 /* Hook functions */
@@ -90,14 +118,14 @@ int		xclose(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
 void	rot_move(t_player *player, int direction);
-void	player_move(t_game *game, int keycode);
+void	player_move(t_game *game);
 int		touch(double px, double py, t_game *game);
 double	ray_dist(t_game *game, double dirX, double dirY);
 
 /* Color functions */
 int		add_shade(double distance, int color);
 int		create_trgb(int t, int r, int g, int b);
-int		choose_color(int side);
+int		is_light(int color);
 
 /* Draw functions */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -118,13 +146,21 @@ int		animation_loop(void *param);
 void	clear_screen(t_game *game, int color);
 
 /* Raycasting functions */
-void	cast_ray_dda(t_game *game, t_ray_result *ray);
 void	ray_casting_loop(t_game *game);
+void	cast_ray_dda(t_game *game, t_ray_result *ray);
+void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Utils */
 void    display_error(int n, char *msg);
 void	clean_exit(int n, t_game *game, char *msg);
 void	free_map(t_map *map);
+
+/* Init functions */
+t_map		init_map(void);
+t_player	init_player(t_game *game);
+t_game 		init_game(void);
+void		init_keys(t_game *game);
+void		init_textures(t_game *game);
 
 /* Time functions */
 void		wait(long time_to_sleep);
