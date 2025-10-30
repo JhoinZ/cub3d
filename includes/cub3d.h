@@ -6,45 +6,45 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 11:38:30 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:04:36 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#define WIDTH 1280
-#define HEIGHT 720
-#define PI 3.141592653589
-#define DEBUG 0
+# define WIDTH 1280
+# define HEIGHT 720
+# define PI 3.141592653589
+# define DEBUG 0
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include "../Libft/libft.h"
-#include "../minilibx-linux/mlx.h"
+# include <unistd.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include "../Libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 
-#define RST			"\033[0m"    // Reset per tornare al colore normale
-#define RED			"\033[1;31m" // Rosso brillante
-#define GRN			"\033[1;32m" // Verde brillante
-#define YLW			"\033[1;33m" // Giallo brillante
-#define BLU			"\033[1;34m" // Blu brillante
-#define MGT			"\033[1;35m" // Magenta brillante
-#define CYN			"\033[1;36m" // Ciano brillante
-#define WIT			"\033[1;37m" // Bianco brillante
+# define RST			"\033[0m"    // Reset per tornare al colore normale
+# define RED			"\033[1;31m" // Rosso brillante
+# define GRN			"\033[1;32m" // Verde brillante
+# define YLW			"\033[1;33m" // Giallo brillante
+# define BLU			"\033[1;34m" // Blu brillante
+# define MGT			"\033[1;35m" // Magenta brillante
+# define CYN			"\033[1;36m" // Ciano brillante
+# define WIT			"\033[1;37m" // Bianco brillante
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 }	t_rgb;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
@@ -55,7 +55,7 @@ typedef struct	s_player
 	char	initial_dir;
 }	t_player;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img_ptr;
 	char	*addr;
@@ -64,7 +64,7 @@ typedef struct	s_img
 	int		endian;
 }	t_img;
 
-typedef struct	s_tools
+typedef struct s_tools
 {
 	void		*mlx_ptr;
 	void		*win_ptr;

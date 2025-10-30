@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 10:20:42 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:03:00 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_mem(t_tools *tools)
 {
 	if (!tools)
-		return;
+		return ;
 	if (tools->tex_no != NULL)
 	{
 		free(tools->tex_no);
@@ -84,8 +84,8 @@ void	ft_error(int error_code, t_tools *tools)
 
 void	ft_error_light(int error_code)
 {
-	const char	*message;
-	static const char 	*g_error_message[] = {
+	const char			*message;
+	static const char	*g_error_message[] = {
 		"Fatal: Unknown Error. The program closed due to an anomaly.\n", // 0 default
 		"Usage: The program requires exactly one argument (path to .cub file).\n", // 1 usage error
 		"File Error: Scene file extension must be .cub.\n", // 2 file error

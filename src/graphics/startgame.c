@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 11:41:31 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:02:20 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ void	ft_setup_mlx_and_game(t_tools *tools)
 	if (tools->img_buffer.img_ptr == NULL)
 		ft_error(4, tools);
 	tools->img_buffer.addr = mlx_get_data_addr(
-		tools->img_buffer.img_ptr,
-		&tools->img_buffer.bpp,
-		&tools->img_buffer.line_length,
-		&tools->img_buffer.endian
-	);
+			tools->img_buffer.img_ptr,
+			&tools->img_buffer.bpp,
+			&tools->img_buffer.line_length,
+			&tools->img_buffer.endian);
 	ft_load_mlx_textures(tools);
 	ft_set_hooks(tools);
 	mlx_loop(tools->mlx_ptr);

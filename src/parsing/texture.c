@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 16:55:56 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 11:52:11 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:00:43 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ bool	ft_parse_rgb_component(char *s, int *out_value)
 void	ft_color(char *data, t_tools *tools, char *id)
 {
 	char	**parts;
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 
 	if (!data)
 		ft_error(3, tools);

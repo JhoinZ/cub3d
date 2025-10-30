@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 11:54:51 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:02:01 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_scan_and_validate(t_tools *tools)
 	int		row_index;
 	int		col_index;
 	int		row_lenght;
-	
+
 	player_count = 0;
 	row_index = 0;
 	row_lenght = 0;

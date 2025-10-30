@@ -6,13 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 13:12:51 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:09:00 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_parse_element(char *line,t_tools *tools)
+int	ft_parse_element(char *line, t_tools *tools)
 {
 	char	*data;
 

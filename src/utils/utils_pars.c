@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:09:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:04:00 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:03:32 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	ft_endwith(char *str, char *suffix)
 
 int	ft_checkspace(char *line)
 {
-	if (line == NULL)
-		return (1);
 	int	i;
 
+	if (line == NULL)
+		return (1);
 	i = 0;
 	while (line[i] != '\0')
 	{
