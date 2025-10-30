@@ -6,7 +6,7 @@
 #    By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/21 11:22:13 by fsaffiri          #+#    #+#              #
-#    Updated: 2025/10/28 12:17:15 by fsaffiri         ###   ########.fr        #
+#    Updated: 2025/10/30 10:23:50 by fsaffiri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,17 +35,17 @@ OPT_FLAGS	= -O2
 RM			= rm -rf
 
 # MiniLibX paths (adjust based on your system)
-MLX_LINUX	= MLX42
+MLX_LINUX	= minilibx-linux
 
 # Auto-detect OS and set MLX path (MLX42 library)
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	MLX_PATH = $(MLX_LINUX)
-	MLX = $(MLX_PATH)/libmlx42.a
-	MLX_FLAGS = -ldl -lglfw -pthread -lm
+	MLX = $(MLX_PATH)/libmlx.a
+	MLX_FLAGS = -lX11 -lXext -lm
 else ifeq ($(UNAME_S),Darwin)
 	MLX_PATH = $(MLX_LINUX)
-	MLX = $(MLX_PATH)/libmlx42.a
+	MLX = $(MLX_PATH)/libmlx.a
 	MLX_FLAGS = -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
@@ -67,7 +67,7 @@ BONUS_SRC	= $(shell find $(BONUS_DIR) -name "*.c" -type f 2>/dev/null || true)
 BONUS_OBJ	= $(BONUS_SRC:$(BONUS_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Includes
-INCLUDES	= -Iincludes -I$(LIBFT_PATH) -I$(MLX_PATH)/include
+INCLUDES	= -Iincludes -I$(LIBFT_PATH) -I$(MLX_PATH)
 
 # Progress bar variables
 TOTAL_FILES = $(words $(SRC))
@@ -116,12 +116,17 @@ libft:
 	@$(MAKE) -C $(LIBFT_PATH) re BONUS=1 --no-print-directory --silent
 
 mlx:
-	@echo "$(BLUE)🎨 Building MLX42 (if present)...$(RESET)"
+	@echo "$(BLUE)🎨 Building MinilibX (if present)...$(RESET)"
 	@if [ -d "$(MLX_PATH)" ]; then \
-		$(MAKE) -C $(MLX_PATH) --no-print-directory --silent || true; \
-		echo "$(GREEN)✅ MLX42 build step finished (check $(MLX_PATH)/libmlx42.a)$(RESET)\n"; \
+		printf "   Building MinilibX in %s...\n" "$(MLX_PATH)"; \
+		$(MAKE) -C $(MLX_PATH) --no-print-directory || true; \
+		if [ -f "$(MLX)" ]; then \
+			echo "$(GREEN)✅ MinilibX build finished (check $(MLX))$(RESET)\n"; \
+		else \
+			echo "$(YELLOW)⚠️  MinilibX build finished but $(MLX) not found.\nPlease check $(MLX_PATH) Makefile.$(RESET)"; \
+		fi; \
 	else \
-		echo "$(YELLOW)⚠️  MLX42 not found at $(MLX_PATH)$(RESET)"; \
+		echo "$(YELLOW)⚠️  MinilibX not found at $(MLX_PATH)$(RESET)"; \
 		echo "$(YELLOW)   Please install it or check the path$(RESET)"; \
 	fi
 

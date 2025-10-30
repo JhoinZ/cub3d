@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:22:57 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:20:42 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ void	ft_free_mem(t_tools *tools)
 	}
 	if (tools->mlx_ptr != NULL)
 	{
-		mlx_terminate(tools->mlx_ptr);
+		if (tools->win_ptr != NULL)
+		{
+			mlx_destroy_window(tools->mlx_ptr, tools->win_ptr);
+			tools->win_ptr = NULL;
+		}
+		mlx_destroy_display(tools->mlx_ptr);
+		free(tools->mlx_ptr);
 		tools->mlx_ptr = NULL;
 	}
 }

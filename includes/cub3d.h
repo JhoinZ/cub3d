@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 13:06:29 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:17:26 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "../Libft/libft.h"
-#include "../MLX42/include/MLX42/MLX42.h"
+#include "../minilibx-linux/mlx.h"
 
 #define RST			"\033[0m"    // Reset per tornare al colore normale
 #define RED			"\033[1;31m" // Rosso brillante
@@ -53,7 +53,7 @@ typedef struct	s_player
 
 typedef struct	s_tools
 {
-	mlx_t		*mlx_ptr;
+	void		*mlx_ptr;
 	void		*win_ptr;
 	char		*tex_no;
 	char		*tex_so;
