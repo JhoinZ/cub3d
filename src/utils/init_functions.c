@@ -6,7 +6,7 @@ void	load_textures(t_game *game)
 	int	i;
 	int	width;
 	int	height;
-	
+
 	i = 0;
 	while (i < 4)
 	{
@@ -15,7 +15,7 @@ void	load_textures(t_game *game)
 		if (!game->texture[i].img)
 			clean_exit(1, game, "Error loading texture");
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
-			&game->texture[i].bits_per_pixel, &game->texture[i].line_length,
+			&game->texture[i].bpp, &game->texture[i].line_length,
 			&game->texture[i].endian);
 		game->texture[i].width = width;
 		game->texture[i].height = height;
@@ -42,7 +42,7 @@ t_game init_game(void)
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel,
+	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp,
 									&game.img.line_length, &game.img.endian);
 	game.init_screen = 0;
 	init_keys(&game);
@@ -97,10 +97,7 @@ t_map	init_map()
 	map.grid[23] = "111111111111111111111111";
 	map.ceiling_color = 0x0074D4FF;
 	map.floor_color = 0x003F3F46;
-	if ((WIDTH / map.width) > (HEIGHT / map.height))
-		map.tile_size = (HEIGHT / map.height);
-	else
-		map.tile_size = (WIDTH / map.width);
+	map.tile_size = (WIDTH / map.width);
 	map.textures[0] = "./textures/DungeonWall42.xpm";
 	map.textures[1] = "./textures/DungeonWall42.xpm";
 	map.textures[2] = "./textures/DungeonWall42.xpm";
