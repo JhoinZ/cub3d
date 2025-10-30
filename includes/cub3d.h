@@ -6,12 +6,17 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 10:17:26 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:38:30 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
+
+#define WIDTH 1280
+#define HEIGHT 720
+#define PI 3.141592653589
+#define DEBUG 0
 
 #include <unistd.h>
 #include <signal.h>
@@ -39,7 +44,6 @@ typedef struct	s_rgb
 	int b;
 }	t_rgb;
 
-
 typedef struct	s_player
 {
 	double	pos_x;
@@ -51,6 +55,15 @@ typedef struct	s_player
 	char	initial_dir;
 }	t_player;
 
+typedef struct	s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 typedef struct	s_tools
 {
 	void		*mlx_ptr;
@@ -61,6 +74,7 @@ typedef struct	s_tools
 	char		*tex_ea;
 	t_rgb		floor_color;
 	t_rgb		ceil_color;
+	t_img		img_buffer;
 	char		**map_grid;
 	int			map_height;
 	int			map_width;
