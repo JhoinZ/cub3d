@@ -1,7 +1,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	load_textures(t_game *game)
+void	load_textures(t_game *game)
 {
 	int	i;
 	int	width;
@@ -13,7 +13,7 @@ int	load_textures(t_game *game)
 		game->texture[i].img = mlx_xpm_file_to_image(game->mlx, 
 			game->map.textures[i], &width, &height);
 		if (!game->texture[i].img)
-			return (0); // Error loading texture
+			clean_exit(1, game, "Error loading texture");
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
 			&game->texture[i].bits_per_pixel, &game->texture[i].line_length,
 			&game->texture[i].endian);
@@ -21,7 +21,6 @@ int	load_textures(t_game *game)
 		game->texture[i].height = height;
 		i++;
 	}
-	return (1);
 }
 
 void	init_keys(t_game *game)
@@ -61,7 +60,7 @@ t_player	init_player(t_game *game)
 	player.planeX = 0.66f;
 	player.planeY = 0;
 	player.rot_speed = 0.07f;
-	player.move_speed = game->map.tile_size / 8;
+	player.move_speed = game->map.tile_size / 15;
 	return (player);
 }
 
@@ -102,5 +101,9 @@ t_map	init_map()
 		map.tile_size = (HEIGHT / map.height);
 	else
 		map.tile_size = (WIDTH / map.width);
+	map.textures[0] = "./textures/DungeonWall42.xpm";
+	map.textures[1] = "./textures/DungeonWall42.xpm";
+	map.textures[2] = "./textures/DungeonWall42.xpm";
+	map.textures[3] = "./textures/DungeonWall42.xpm";
 	return (map);
 }

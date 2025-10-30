@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:37 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 19:08:02 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:25:16 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define PI 3.141592653589
 # define DEBUG 0
 
@@ -58,7 +58,7 @@ typedef struct s_map{
 	int		floor_color;
 	int		ceiling_color;
 	int		without_directions;
-	char	**textures;
+	char	*textures[4];
 } t_map;
 
 typedef struct s_ray_result
@@ -85,6 +85,10 @@ typedef struct s_vertical
 	int		y_end;
 	int		index;
 	int		tex_x;
+	int		tex_y;
+	int		tex_pos;
+	char	*pixel_addr;
+	int		step;
 	double	tex_x_normalized;
 } t_vertical;
 
@@ -117,6 +121,7 @@ typedef struct s_game {
 int		xclose(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
+void	player_actions(t_game *game);
 void	rot_move(t_player *player, int direction);
 void	player_move(t_game *game);
 int		touch(double px, double py, t_game *game);
@@ -126,6 +131,7 @@ double	ray_dist(t_game *game, double dirX, double dirY);
 int		add_shade(double distance, int color);
 int		create_trgb(int t, int r, int g, int b);
 int		is_light(int color);
+int 	choose_color(int side);
 
 /* Draw functions */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -160,7 +166,7 @@ t_map		init_map(void);
 t_player	init_player(t_game *game);
 t_game 		init_game(void);
 void		init_keys(t_game *game);
-int			load_textures(t_game *game);
+void		load_textures(t_game *game);
 
 /* Time functions */
 void		wait(long time_to_sleep);

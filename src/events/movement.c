@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 18:40:20 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:33:23 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,22 @@ int	colision(t_game *game, t_player player, int n)
 
 void	player_move(t_game *game)
 {
-	if (game->keys.key_w && !colision(game, game->player, 1))
+	if (game->keys.key_w)
 	{
 		game->player.posX += game->player.dirX * game->player.move_speed;
 		game->player.posY += game->player.dirY * game->player.move_speed;
 	}
-	if (game->keys.key_s && !colision(game, game->player, 2))
+	if (game->keys.key_s)
 	{		
 		game->player.posX -= game->player.dirX * game->player.move_speed;
 		game->player.posY -= game->player.dirY * game->player.move_speed;
 	}
-	if (game->keys.key_a && !colision(game, game->player, 3))
+	if (game->keys.key_a)
 	{
 		game->player.posX += game->player.dirY * game->player.move_speed;
 		game->player.posY -= game->player.dirX * game->player.move_speed;
 	}
-	if (game->keys.key_d && !colision(game, game->player, 4))
+	if (game->keys.key_d)
 	{
 		game->player.posX -= game->player.dirY * game->player.move_speed;
 		game->player.posY += game->player.dirX * game->player.move_speed;

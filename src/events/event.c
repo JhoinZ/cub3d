@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 17:45:58 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:37:11 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	key_press(int keycode, t_game *game)
 		game->keys.key_s = 1;
 	else if (keycode == KEY_D)
 		game->keys.key_d = 1;
-	else if (keycode = KEY_LEFT)
+	else if (keycode == KEY_LEFT)
 		game->keys.key_left = 1;
-	else if (keycode = KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		game->keys.key_right = 1;
-	else if (keycode = KEY_E)
+	else if (keycode == KEY_E)
 		game->keys.key_e = 1;
-	else if (keycode = KEY_SHIFT)
+	else if (keycode == KEY_SHIFT)
 		game->keys.key_shift = 1;
 	else
    		printf("Kecode of the key pressed: %d\n", keycode);
@@ -67,11 +67,11 @@ int	key_release(int keycode, t_game *game)
 		game->keys.key_s = 0;
 	if (keycode == KEY_D)
 		game->keys.key_d = 0;
-	if (keycode = KEY_LEFT)
+	if (keycode == KEY_LEFT)
 		game->keys.key_left = 0;
-	if (keycode = KEY_RIGHT)
+	if (keycode == KEY_RIGHT)
 		game->keys.key_right = 0;
-	if (keycode = KEY_E)
+	if (keycode == KEY_E)
 		game->keys.key_e = 0;
 	if (keycode == KEY_SHIFT)
 		game->keys.key_e = 0;

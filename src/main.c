@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:46 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 17:58:41 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:21:15 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(void)
 	mlx_hook(game.win, EVENT_CLOSE_BTN, 1L<<0, xclose, &game);
 	game.map = init_map();
 	game.player = init_player(&game);
-	init_textures(&game);
+	load_textures(&game);
 	
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);

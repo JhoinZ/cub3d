@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:45 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 08:38:02 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:25:55 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int	is_light(int color)
 	b = color & 0xFF;
 	luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255.0;
 	return (luminance > 0.7);
+}
+
+int choose_color(int side)
+{
+    if (side == 0) 
+        return 0x00FF00 / 2; // Red for x-side (vertical walls)
+    else 
+        return 0x00FF00; // Green for y-side (horizontal walls)
 }
 
 /*
