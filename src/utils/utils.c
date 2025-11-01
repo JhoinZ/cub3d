@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/30 12:17:02 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:38:11 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,27 @@ void	free_textures(t_game *game)
 
 void	free_map(t_map *map)
 {
+	int i;
+
 	if (map && map->grid)
 	{
-		free(map->grid);
-		free(map->textures);
+		/* map->grid was allocated via ft_split / malloc per row */
+		ft_free_split(map->grid);
 		map->grid = NULL;
+	}
+	/* free any texture path strings if allocated */
+	if (map)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			if (map->textures[i])
+			{
+				free(map->textures[i]);
+				map->textures[i] = NULL;
+			}
+			i++;
+		}
 	}
 }
 
@@ -61,17 +77,9 @@ void	clean_exit(int n, t_game *game, char *msg)
 		display_error(0, msg);
 	if (!game)
 		exit(n);
-	if (game->map.grid)
-		free_map(&game->map);
-	if (game->img.img)
-		mlx_destroy_image(game->mlx, game->img.img);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_loop_end(game->mlx);
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
+	/* Delegate full cleanup to ft_free_mem which handles images, textures,
+	   map grid, window and mlx teardown. This centralizes resource freeing
+	   and avoids ordering/double-free issues. */
+	ft_free_mem(game);
 	exit(n);
 }

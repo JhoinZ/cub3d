@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 16:22:59 by fsaffiri          #+#    #+#             */
+/*   Updated: 2025/11/01 16:40:17 by fsaffiri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
@@ -95,8 +106,13 @@ t_map	init_map()
 	map.grid[21] = "140000000000000000000001";
 	map.grid[22] = "144444444000000000000001";
 	map.grid[23] = "111111111111111111111111";
-	map.ceiling_color = 0x0074D4FF;
-	map.floor_color = 0x003F3F46;
+	map.ceiling_color.r = 0x74;
+	map.ceiling_color.g = 0xD4;
+	map.ceiling_color.b = 0xFF;
+	map.floor_color.r = 0x3F;
+	map.floor_color.g = 0x3F;
+	map.floor_color.b = 0x46;
+	map.grid[map.height] = NULL;
 	map.tile_size = (WIDTH / map.width);
 	map.textures[0] = "./textures/DungeonWall42.xpm";
 	map.textures[1] = "./textures/DungeonWall42.xpm";

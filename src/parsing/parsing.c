@@ -6,13 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 12:42:59 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:19:41 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_parse_element(char *line, t_tools *tools)
+int	ft_parse_element(char *line, t_game *game)
 {
 	char	*data;
 
@@ -21,39 +21,39 @@ int	ft_parse_element(char *line, t_tools *tools)
 		return (0);
 	if (!ft_strncmp(data, "NO ", 3))
 	{
-		ft_texture(data, tools, "NO");
+		ft_texture(data, game, "NO");
 		return (1);
 	}
 	else if (!ft_strncmp(data, "SO ", 3))
 	{
-		ft_texture(data, tools, "SO");
+		ft_texture(data, game, "SO");
 		return (1);
 	}
 	else if (!ft_strncmp(data, "WE ", 3))
 	{
-		ft_texture(data, tools, "WE");
+		ft_texture(data, game, "WE");
 		return (1);
 	}
 	else if (!ft_strncmp(data, "EA ", 3))
 	{
-		ft_texture(data, tools, "EA");
+		ft_texture(data, game, "EA");
 		return (1);
 	}
 	else if (!ft_strncmp(data, "F ", 2))
 	{
-		ft_color(data, tools, "F");
+		ft_color(data, game, "F");
 		return (1);
 	}
 	else if (!ft_strncmp(data, "C ", 2))
 	{
-		ft_color(data, tools, "C");
+		ft_color(data, game, "C");
 		return (1);
 	}
 	else
 		return (0);
 }
 
-char	*ft_parse_config(int fd, t_tools *tools)
+char	*ft_parse_config(int fd, t_game *game)
 {
 	size_t	_len;
 	char	*map_buffer;
@@ -66,7 +66,7 @@ char	*ft_parse_config(int fd, t_tools *tools)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (tools->elements_count != 6)
+		if (game->map.elements_count != 6)
 		{
 			_len = ft_strlen(line);
 			if (_len > 0 && line[_len - 1] == '\n')
@@ -76,36 +76,36 @@ char	*ft_parse_config(int fd, t_tools *tools)
 			free(line);
 		else
 		{
-			if (tools->elements_count == 6)
+			if (game->map.elements_count == 6)
 				map_buffer = ft_strjoin(map_buffer, line);
-			else if (ft_parse_element(line, tools))
+			else if (ft_parse_element(line, game))
 			{
-				tools->elements_count++;
+				game->map.elements_count++;
 				free(line);
 			}
 			else
 			{
 				free(line);
-				ft_error(5, tools);
+				ft_error(5, game);
 			}
 		}
 	}
-	if (tools->elements_count < 6)
-		ft_error(7, tools);
+	if (game->map.elements_count < 6)
+		ft_error(7, game);
 	if (!map_buffer)
-		ft_error(3, tools);
+		ft_error(3, game);
 	return (map_buffer);
 }
 
-void	ft_full_parsing(char **av, int ac, t_tools *tools)
+void	ft_full_parsing(char **av, int ac, t_game *game)
 {
 	int		fd;
 	char	*map_buffer;
 
-	ft_init_tools(tools);
+	ft_init_tools(game);
 	fd = ft_check_argv(av, ac);
-	map_buffer = ft_parse_config(fd, tools);
+	map_buffer = ft_parse_config(fd, game);
 	close(fd);
-	ft_create_map(map_buffer, tools);
-	ft_validate_map(tools);
+	ft_create_map(map_buffer, game);
+	ft_validate_map(game);
 }

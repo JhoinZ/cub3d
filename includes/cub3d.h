@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 13:12:57 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:31:58 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,10 @@ void	ft_texture(char *data, t_game *game, char *id);
 void	ft_color(char *data, t_game *game, char *id);
 void	ft_create_map(char *map_buffer, t_game *game);
 void	ft_validate_map(t_game *game);
+
+/* setup/init helpers (parser -> game bridging) */
+void	ft_setup_mlx_and_game(t_game *game);
+void	ft_init_player_vectors(t_game *game);
 
 /* utils parsing */
 int		ft_checkspace(char *line);

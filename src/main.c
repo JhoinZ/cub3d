@@ -6,22 +6,11 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 13:15:02 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:30:51 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* int	main(char **av, int ac)
-{
-	t_tools	tools;
-
-	ft_full_parsing(av, ac, &tools);
-	ft_init_player_vectors(&tools);
-	ft_setup_mlx_and_game(&tools);
-	ft_run_game_loop(&tools);
-	return (0);
-} */
 
 int	game_loop(void *param)
 {
@@ -48,17 +37,16 @@ int	game_loop(void *param)
 	return (0);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_game	game;
 
-	game = init_game();
+	ft_full_parsing(av, ac, &game);
+	ft_init_player_vectors(&game);
+	ft_setup_mlx_and_game(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, EVENT_CLOSE_BTN, 1L << 0, xclose, &game);
-	game.map = init_map();
-	game.player = init_player(&game);
-	load_textures(&game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);

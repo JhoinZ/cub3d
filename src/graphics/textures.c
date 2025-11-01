@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/30 12:37:32 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:28:24 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	draw_wall_column(t_vertical *v, t_game *game, t_ray_result ray)
 		if (v->tex_y < 0)
 			v->tex_y += game->texture[v->index].height;
 		v->tex_pos += v->step;
-		v->pixel_addr = game->texture[v->index].addr
-				+ (v->tex_y * game->texture[v->index].line_length
-					+ v->tex_x * (game->texture[v->index].bits_per_pixel / 8));
+	v->pixel_addr = game->texture[v->index].addr
+		+ (v->tex_y * game->texture[v->index].line_length
+		    + v->tex_x * (game->texture[v->index].bpp / 8));
 		color = *(unsigned int *)v->pixel_addr;
 		if (ray.side == 0 && !is_light(color))
 			color = (color >> 1) & 8355711;

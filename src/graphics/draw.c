@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:50 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 12:17:56 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:22:50 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
         return;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 

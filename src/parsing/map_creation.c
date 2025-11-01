@@ -6,13 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 13:18:21 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:20:19 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_scan_and_validate(t_tools *tools)
+void	ft_scan_and_validate(t_game *game)
 {
 	char	c;
 	int		player_count;
@@ -23,58 +23,58 @@ void	ft_scan_and_validate(t_tools *tools)
 	player_count = 0;
 	row_index = 0;
 	row_lenght = 0;
-	while (tools->map_grid[row_index])
+	while (game->map.grid[row_index])
 	{
-		row_lenght = ft_strlen(tools->map_grid[row_index]);
-		if (row_lenght > tools->map_width)
-			tools->map_width = row_lenght;
+		row_lenght = ft_strlen(game->map.grid[row_index]);
+		if (row_lenght > game->map.width)
+			game->map.width = row_lenght;
 		col_index = 0;
-		while (tools->map_grid[row_index][col_index])
+		while (game->map.grid[row_index][col_index])
 		{
-			c = tools->map_grid[row_index][col_index];
+			c = game->map.grid[row_index][col_index];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
 				player_count++;
-				tools->player.initial_dir = c;
-				tools->player.pos_x = col_index;
-				tools->player.pos_y = row_index;
+				game->player.initial_dir = c;
+				game->player.posX = col_index;
+				game->player.posY = row_index;
 			}
 			else if (c != '0' && c != '1' && c != ' ')
-				ft_error(8, tools);
+				ft_error(8, game);
 			col_index++;
 		}
 		row_index++;
 	}
-	tools->map_height = row_index;
+	game->map.height = row_index;
 	if (player_count != 1)
-		ft_error(9, tools);
+		ft_error(9, game);
 }
 
-void	ft_rectify_map(t_tools *tools)
+void	ft_rectify_map(t_game *game)
 {
 	int		original_row;
 	char	**new_grid;
 	int		r;
 	int		c;
 
-	new_grid = malloc(sizeof(char *) * (tools->map_height + 1));
+	new_grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!new_grid)
-		ft_error(10, tools);
+		ft_error(10, game);
 	r = 0;
-	while (r < tools->map_height)
+	while (r < game->map.height)
 	{
-		new_grid[r] = malloc(sizeof(char) * (tools->map_width + 1));
+		new_grid[r] = malloc(sizeof(char) * (game->map.width + 1));
 		if (!new_grid[r])
 		{
 			ft_free_split(new_grid);
-			ft_error(10, tools);
+			ft_error(10, game);
 		}
-		original_row = ft_strlen(tools->map_grid[r]);
+		original_row = ft_strlen(game->map.grid[r]);
 		c = 0;
-		while (c < tools->map_width)
+		while (c < game->map.width)
 		{
 			if (c < original_row)
-				new_grid[r][c] = tools->map_grid[r][c];
+				new_grid[r][c] = game->map.grid[r][c];
 			else
 				new_grid[r][c] = '2';
 			c++;
@@ -83,18 +83,18 @@ void	ft_rectify_map(t_tools *tools)
 		r++;
 	}
 	new_grid[r] = NULL;
-	ft_free_split(tools->map_grid);
-	tools->map_grid = new_grid;
+	ft_free_split(game->map.grid);
+	game->map.grid = new_grid;
 }
 
-void	ft_create_map(char *map_buffer, t_tools *tools)
+void	ft_create_map(char *map_buffer, t_game *game)
 {
 	if (!map_buffer)
-		ft_error(3, tools);
-	tools->map_grid = ft_split(map_buffer, '\n');
-	if (!tools->map_grid)
-		ft_error(3, tools);
+		ft_error(3, game);
+	game->map.grid = ft_split(map_buffer, '\n');
+	if (!game->map.grid)
+		ft_error(3, game);
 	free(map_buffer);
-	ft_scan_and_validate(tools);
-	ft_rectify_map(tools);
+	ft_scan_and_validate(game);
+	ft_rectify_map(game);
 }

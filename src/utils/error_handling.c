@@ -6,55 +6,63 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 12:03:00 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:38:15 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_free_mem(t_tools *tools)
+void	ft_free_mem(t_game *game)
 {
-	if (!tools)
+	int i;
+
+	if (!game)
 		return ;
-	if (tools->tex_no != NULL)
+	i = 0;
+	while (i < 4)
 	{
-		free(tools->tex_no);
-		tools->tex_no = NULL;
-	}
-	if (tools->tex_so != NULL)
-	{
-		free(tools->tex_so);
-		tools->tex_so = NULL;
-	}
-	if (tools->tex_we != NULL)
-	{
-		free(tools->tex_we);
-		tools->tex_we = NULL;
-	}
-	if (tools->tex_ea != NULL)
-	{
-		free(tools->tex_ea);
-		tools->tex_ea = NULL;
-	}
-	if (tools->map_grid != NULL)
-	{
-		ft_free_split(tools->map_grid);
-		tools->map_grid = NULL;
-	}
-	if (tools->mlx_ptr != NULL)
-	{
-		if (tools->win_ptr != NULL)
+		if (game->map.textures[i] != NULL)
 		{
-			mlx_destroy_window(tools->mlx_ptr, tools->win_ptr);
-			tools->win_ptr = NULL;
+			free(game->map.textures[i]);
+			game->map.textures[i] = NULL;
 		}
-		mlx_destroy_display(tools->mlx_ptr);
-		free(tools->mlx_ptr);
-		tools->mlx_ptr = NULL;
+		i++;
+	}
+	if (game->map.grid != NULL)
+	{
+		ft_free_split(game->map.grid);
+		game->map.grid = NULL;
+	}
+	if (game->mlx != NULL)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			if (game->texture[i].img)
+			{
+				mlx_destroy_image(game->mlx, game->texture[i].img);
+				game->texture[i].img = NULL;
+			}
+			i++;
+		}
+		if (game->img.img)
+		{
+			mlx_destroy_image(game->mlx, game->img.img);
+			game->img.img = NULL;
+		}
+		if (game->win != NULL)
+		{
+			mlx_destroy_window(game->mlx, game->win);
+			game->win = NULL;
+		}
+		mlx_loop_end(game->mlx);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		game->mlx = NULL;
 	}
 }
 
-void	ft_error(int error_code, t_tools *tools)
+void	ft_error(int error_code, t_game *game)
 {
 	const char	*message;
 	static const char 	*g_error_message[] = {
@@ -78,7 +86,7 @@ void	ft_error(int error_code, t_tools *tools)
 		message = g_error_message[0];
 	printf(RED"Error:\n"RST);
 	printf(WIT"%s"RST, message);
-	ft_free_mem(tools);
+	ft_free_mem(game);
 	exit(EXIT_FAILURE);
 }
 

@@ -6,27 +6,28 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:09:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/30 12:03:32 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:20:43 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_init_tools(t_tools *tools)
+void	ft_init_tools(t_game *game)
 {
-	ft_memset(tools, 0, sizeof(t_tools));
-	tools->mlx_ptr = NULL;
-	tools->win_ptr = NULL;
-	tools->tex_no = NULL;
-	tools->tex_so = NULL;
-	tools->tex_we = NULL;
-	tools->tex_ea = NULL;
-	tools->map_grid = NULL;
-	tools->map_height = 0;
-	tools->map_width = 0;
-	tools->elements_count = 0;
-	tools->status = false;
-	tools->player.initial_dir = 0;
+	int i;
+
+	ft_memset(game, 0, sizeof(t_game));
+	game->mlx = NULL;
+	game->win = NULL;
+	i = 0;
+	while (i < 4)
+		game->map.textures[i++] = NULL;
+	game->map.grid = NULL;
+	game->map.height = 0;
+	game->map.width = 0;
+	game->map.elements_count = 0;
+	game->status = false;
+	game->player.initial_dir = 0;
 }
 
 int	ft_check_argv(char **av, int ac)
