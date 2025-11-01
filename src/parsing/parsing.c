@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:19:41 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:14:10 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,9 @@ void	ft_full_parsing(char **av, int ac, t_game *game)
 	close(fd);
 	ft_create_map(map_buffer, game);
 	ft_validate_map(game);
+	if (game->map.width == 0)
+		ft_error(11, game);
+	game->map.tile_size = (WIDTH / game->map.width);
+	game->player.posX = game->player.posX * game->map.tile_size;
+	game->player.posY = game->player.posY * game->map.tile_size;
 }
