@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/30 12:37:11 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:20:35 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-// Closes the window when X is clicked and finish with a clean exit
 int	xclose(t_game *game)
 {
-	clean_exit(0, game, NULL);
+	ft_error(0, game);
 	return (0);
 }
 

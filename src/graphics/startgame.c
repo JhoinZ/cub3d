@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:21:20 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:13:33 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_setup_mlx_and_game(t_game *game)
 			&game->img.line_length,
 			&game->img.endian);
 	load_textures(game);
-	/* hook setup is handled in main.c currently */
 }
 
 void	ft_init_player_vectors(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:22:59 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:40:17 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:27:14 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	load_textures(t_game *game)
 		game->texture[i].img = mlx_xpm_file_to_image(game->mlx, 
 			game->map.textures[i], &width, &height);
 		if (!game->texture[i].img)
-			clean_exit(1, game, "Error loading texture");
+			ft_error(12, game);
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
 			&game->texture[i].bpp, &game->texture[i].line_length,
 			&game->texture[i].endian);

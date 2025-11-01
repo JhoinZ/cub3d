@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:38:15 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:28:31 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ void	ft_free_mem(t_game *game)
 
 void	ft_error(int error_code, t_game *game)
 {
+	if (error_code == 0)
+	{
+		ft_free_mem(game);
+		exit(EXIT_SUCCESS);
+	}
+
 	const char	*message;
 	static const char 	*g_error_message[] = {
 		"Fatal: Unknown Error. The program closed due to an anomaly.\n", // 0 default
@@ -77,10 +83,10 @@ void	ft_error(int error_code, t_game *game)
 		"Map: Invalid character in grid ('0', '1', ' ', 'N', 'S', 'E', 'W').\n", // 8 map invalid
 		"Map: Must have exactly one starting position ('N', 'S', 'E', 'W').\n", // 9 inalid player
 		"Memory: Allocation failed during map creation or grid rectification.\n", // 10 mem allocation
-		"Map: Map is not enclosed or free space found on the border (Flood Fill Failed).\n" // 11 map open
+		"Map: Map is not enclosed or free space found on the border (Flood Fill Failed).\n", // 11 map open
+		"Texture: Failed to load texture file or invalid texture path.\n" // 12 texture load
 	};
-
-	if (error_code > 0 && error_code < 12)
+	if (error_code > 0 && error_code <= 12)
 		message = g_error_message[error_code];
 	else
 		message = g_error_message[0];
@@ -105,10 +111,10 @@ void	ft_error_light(int error_code)
 		"Map: Invalid character in grid ('0', '1', ' ', 'N', 'S', 'E', 'W').\n", // 8 map invalid
 		"Map: Must have exactly one starting position ('N', 'S', 'E', 'W').\n", // 9 inalid player
 		"Memory: Allocation failed during map creation or grid rectification.\n", // 10 mem allocation
-		"Map: Map is not enclosed or free space found on the border (Flood Fill Failed).\n" // 11 map open
+		"Map: Map is not enclosed or free space found on the border (Flood Fill Failed).\n", // 11 map open
+		"Texture: Failed to load texture file or invalid texture path.\n" // 12 texture load
 	};
-
-	if (error_code > 0 && error_code < 12)
+	if (error_code > 0 && error_code <= 12)
 		message = g_error_message[error_code];
 	else
 		message = g_error_message[0];

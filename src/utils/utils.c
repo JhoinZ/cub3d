@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 16:38:11 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:21:00 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	free_map(t_map *map)
 
 	if (map && map->grid)
 	{
-		/* map->grid was allocated via ft_split / malloc per row */
 		ft_free_split(map->grid);
 		map->grid = NULL;
 	}
-	/* free any texture path strings if allocated */
 	if (map)
 	{
 		i = 0;
@@ -64,22 +62,4 @@ void	free_map(t_map *map)
 			i++;
 		}
 	}
-}
-
-/* Clean up game resources and exit. 
- * n: exit code (0 = success, other = error)
- * game: game data to clean up (can be NULL)
- * msg: error message to display if n != 0
- */
-void	clean_exit(int n, t_game *game, char *msg)
-{
-	if (n != 0)
-		display_error(0, msg);
-	if (!game)
-		exit(n);
-	/* Delegate full cleanup to ft_free_mem which handles images, textures,
-	   map grid, window and mlx teardown. This centralizes resource freeing
-	   and avoids ordering/double-free issues. */
-	ft_free_mem(game);
-	exit(n);
 }

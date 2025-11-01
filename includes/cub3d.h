@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:31:58 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:21:27 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Errors */
 void    display_error(int n, char *msg);
-void	clean_exit(int n, t_game *game, char *msg);
 void	ft_error(int error_code, t_game *game);
 void	ft_error_light(int error_code);
 void	ft_free_mem(t_game *game);
