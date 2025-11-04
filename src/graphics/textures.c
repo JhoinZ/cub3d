@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 16:28:24 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:00:59 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	get_wall_c(int side, double stepX, double stepY)
 	if (side == 0)
 	{
 		if (stepY < 0)
-			index = 0;
-		else
 			index = 1;
+		else
+			index = 0;
 	}
 	else
 	{

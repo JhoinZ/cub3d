@@ -1,6 +1,6 @@
-WE ./textures/DungeonWall42.xpm
-SO ./textures/DungeonWall42.xpm
-EA ./textures/DungeonWall42.xpm
+WE ./textures/DungeonWall1.xpm
+SO ./textures/DungeonWall3.xpm
+EA ./textures/DungeonWall4.xpm
 NO ./textures/DungeonWall42.xpm
 
 C 12,12,12
