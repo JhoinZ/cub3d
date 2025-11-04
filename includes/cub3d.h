@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 19:01:47 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:06:46 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,76 +140,69 @@ typedef struct s_game {
 }	t_game;
 
 /* parsing functions */
-void	ft_full_parsing(char **av, int ac, t_game *game);
-void	ft_texture(char *data, t_game *game, char *id);
-void	ft_color(char *data, t_game *game, char *id);
-void	ft_create_map(char *map_buffer, t_game *game);
-void	ft_validate_map(t_game *game);
+void		ft_full_parsing(char **av, int ac, t_game *game);
+void		ft_texture(char *data, t_game *game, char *id);
+void		ft_color(char *data, t_game *game, char *id);
+void		ft_create_map(char *map_buffer, t_game *game);
+void		ft_validate_map(t_game *game);
 
 /* setup/init helpers (parser -> game bridging) */
-void	ft_setup_mlx_and_game(t_game *game);
-void	ft_init_player_vectors(t_game *game);
+void		ft_setup_mlx_and_game(t_game *game);
+void		ft_init_player_vectors(t_game *game);
+void		load_textures(t_game *game);
 
 /* utils parsing */
-int		ft_checkspace(char *line);
-int		ft_endwith(char *str, char *suffix);
-char	*ft_skipspace(char *str);
-int		ft_check_argv(char **av, int ac);
-void	ft_init_tools(t_game *game);
+int			ft_checkspace(char *line);
+int			ft_endwith(char *str, char *suffix);
+char		*ft_skipspace(char *str);
+int			ft_check_argv(char **av, int ac);
+void		ft_init_tools(t_game *game);
 
 /* Hook functions */
-int		xclose(t_game *game);
-int		key_press(int keycode, t_game *game);
-int		key_release(int keycode, t_game *game);
-void	player_actions(t_game *game);
-void	rot_move(t_player *player, int direction);
-void	player_move(t_game *game);
-int		touch(double px, double py, t_game *game);
-double	ray_dist(t_game *game, double dirX, double dirY);
+int			xclose(t_game *game);
+int			key_press(int keycode, t_game *game);
+int			key_release(int keycode, t_game *game);
+void		player_actions(t_game *game);
+void		rot_move(t_player *player, int direction);
+void		player_move(t_game *game);
+int			touch(double px, double py, t_game *game);
+double		ray_dist(t_game *game, double dirX, double dirY);
 
 /* Color functions */
-int		add_shade(double distance, int color);
-int		create_trgb(int t, int r, int g, int b);
-int		is_light(int color);
-int 	choose_color(int side);
+int			add_shade(double distance, int color);
+int			create_trgb(int t, int r, int g, int b);
+int			is_light(int color);
+int 		choose_color(int side);
 
 /* Draw functions */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_torch(t_data *img, int x, int y, int flame_color);
-void	draw_with_shading(t_data *data);
-void	draw_square(t_data *img, int x, int y, int size, int color);
-void	draw_square2(t_data *img, int x, int y, int size, int color);
-void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
-void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
-void	draw_ray(t_game *game, double dirX, double dirY, int color);
-void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
-void	draw_multiple_rays(t_game *game, int num_rays);
-void	draw_map(t_game *game);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		draw_torch(t_data *img, int x, int y, int flame_color);
+void		draw_with_shading(t_data *data);
+void		draw_square(t_data *img, int x, int y, int size, int color);
+void		draw_square2(t_data *img, int x, int y, int size, int color);
+void		draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
+void		draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
+void		draw_ray(t_game *game, double dirX, double dirY, int color);
+void		draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
+void		draw_multiple_rays(t_game *game, int num_rays);
+void		draw_map(t_game *game);
 
 /* Animation functions */
-void	animate_torch_smooth(t_data *img, int x, int y, float time);
-int		animation_loop(void *param);
-void	clear_screen(t_game *game, int color);
+void		animate_torch_smooth(t_data *img, int x, int y, float time);
+int			animation_loop(void *param);
+void		clear_screen(t_game *game, int color);
 
 /* Raycasting functions */
-void	ray_casting_loop(t_game *game);
-void	cast_ray_dda(t_game *game, t_ray_result *ray);
-void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
+void		ray_casting_loop(t_game *game);
+void		cast_ray_dda(t_game *game, t_ray_result *ray);
+void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Errors */
-void    display_error(int n, char *msg);
-void	ft_error(int error_code, t_game *game);
-void	ft_error_light(int error_code);
-void	ft_free_mem(t_game *game);
-void	free_map(t_map *map);
-
-
-/* Init functions */
-t_map		init_map(void);
-t_player	init_player(t_game *game);
-t_game 		init_game(void);
-void		init_keys(t_game *game);
-void		load_textures(t_game *game);
+void    	display_error(int n, char *msg);
+void		ft_error(int error_code, t_game *game);
+void		ft_error_light(int error_code);
+void		ft_free_mem(t_game *game);
+void		free_map(t_map *map);
 
 /* Time functions */
 void		wait(long time_to_sleep);

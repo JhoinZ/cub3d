@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:20:19 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:41:14 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_scan_and_validate(t_game *game)
 			{
 				player_count++;
 				game->player.initial_dir = c;
-				game->player.posX = col_index;
-				game->player.posY = row_index;
+				game->player.posX = col_index + 0.5;
+				game->player.posY = row_index + 0.5;
 			}
 			else if (c != '0' && c != '1' && c != ' ')
 				ft_error(8, game);
