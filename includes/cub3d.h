@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/04 12:06:46 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:35:07 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 # define PI 3.141592653589
 # define DEBUG 0
 
@@ -49,7 +49,6 @@ typedef struct s_key_hook
 	int	key_d;
 	int key_right;
 	int	key_left;
-	int	key_shift;
 	int	key_e;	
 } t_key_hook;
 
@@ -62,9 +61,8 @@ typedef struct s_vertical
 	int		tex_x;
 	int		tex_y;
 	int		tex_pos;
-	char	*pixel_addr;
-	int		step;
-	double	tex_x_normalized;
+	int		color;
+	double	step;
 } t_vertical;
 
 typedef struct s_ray_result
@@ -101,6 +99,7 @@ typedef struct	s_player {
 	double	move_speed;
 	double	rot_speed;
 	char	initial_dir;
+	int		run;
 } t_player;
 
 typedef struct	s_data {
@@ -151,7 +150,7 @@ void		ft_setup_mlx_and_game(t_game *game);
 void		ft_init_player_vectors(t_game *game);
 void		load_textures(t_game *game);
 
-/* utils parsing */
+/* Utils parsing */
 int			ft_checkspace(char *line);
 int			ft_endwith(char *str, char *suffix);
 char		*ft_skipspace(char *str);
