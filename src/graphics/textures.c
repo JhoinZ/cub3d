@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 11:39:03 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:29:13 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 
 double	distance_factor(double distance)
@@ -120,16 +120,37 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 	int	r;
 	int	g;
 	int	b;
+	int	col;
 
 	v->index = get_wall_c(ray.side, ray.stepX, ray.stepY);
 	calc_texture_data(game, v, ray);
 	draw_wall_column(v, game, ray);
-	r = game->map.ceiling_color.r;
-	g = game->map.ceiling_color.g;
-	b = game->map.ceiling_color.b;
+	col = game->map.ceiling_color;
+	if (col == -1)
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+	}
+	else
+	{
+		r = (col >> 16) & 0xFF;
+		g = (col >> 8) & 0xFF;
+		b = col & 0xFF;
+	}
 	draw_vertical_line(game, v->x, 0, v->y_start - 1, create_trgb(255, r, g, b));
-	r = game->map.floor_color.r;
-	g = game->map.floor_color.g;
-	b = game->map.floor_color.b;
+	col = game->map.floor_color;
+	if (col == -1)
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+	}
+	else
+	{
+		r = (col >> 16) & 0xFF;
+		g = (col >> 8) & 0xFF;
+		b = col & 0xFF;
+	}
 	draw_vertical_line(game, v->x, v->y_end - 3, HEIGHT - 1, create_trgb(255, r, g, b));
 }

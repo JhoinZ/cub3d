@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 16:55:56 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 12:50:15 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:28:57 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,41 +68,40 @@ void	ft_color(char *data, t_game *game, char *id)
 	int		r;
 	int		g;
 	int		b;
+	int		packed_color;
 
 	if (!data)
-		ft_error(3, game);
+		ft_error(7, game);
 	parts = ft_split(ft_skipspace(data + 1), ',');
 	if (!parts)
-		ft_error(3, game);
+		ft_error(10, game);
 	if (!parts[0] || !parts[1] || !parts[2] || parts[3])
 	{
 		ft_free_split(parts);
-		ft_error(3, game);
+		ft_error(5, game);
 	}
+	r = 0;
+	g = 0;
+	b = 0;
 	if (!ft_parse_rgb_component(parts[0], &r)
 		|| !ft_parse_rgb_component(parts[1], &g)
 		|| !ft_parse_rgb_component(parts[2], &b))
 	{
 		ft_free_split(parts);
-		ft_error(3, game);
+		ft_error(5, game);
 	}
+	packed_color = create_trgb(0, r, g, b);
 	if (!ft_strncmp(id, "F", 1))
 	{
-		if (game->map.floor_color.r != 0 || game->map.floor_color.g != 0
-			|| game->map.floor_color.b != 0)
-			ft_error(5, game);
-		game->map.floor_color.r = r;
-		game->map.floor_color.g = g;
-		game->map.floor_color.b = b;
+		if (game->map.floor_color != -1)
+			ft_error(6, game);
+		game->map.floor_color = packed_color;
 	}
 	else if (!ft_strncmp(id, "C", 1))
 	{
-		if (game->map.ceiling_color.r != 0 || game->map.ceiling_color.g != 0
-			|| game->map.ceiling_color.b != 0)
-			ft_error(5, game);
-		game->map.ceiling_color.r = r;
-		game->map.ceiling_color.g = g;
-		game->map.ceiling_color.b = b;
+		if (game->map.ceiling_color != -1)
+			ft_error(6, game);
+		game->map.ceiling_color = packed_color;
 	}
 	ft_free_split(parts);
 }

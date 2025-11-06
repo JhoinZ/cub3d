@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:45 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/30 12:25:55 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:03:40 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 /*
 * Creates a color value from transparency and RGB components

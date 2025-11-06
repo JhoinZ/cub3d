@@ -6,12 +6,12 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 17:21:00 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:04:28 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	display_error(int n, char *msg)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_figures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:36 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 12:13:09 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:03:48 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	draw_square(t_data *img, int x, int y, int size, int color)
 {

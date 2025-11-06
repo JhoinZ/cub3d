@@ -6,11 +6,11 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 18:58:29 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:03:59 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	draw_map(t_game *game)
 {

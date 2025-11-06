@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 13:20:24 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:35:04 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	rot_move(t_player *player, int direction)
 {
@@ -117,6 +117,79 @@ void	player_move(t_game *game)
 		game->player.posY += game->player.dirX * game->player.move_speed * sh;
 	}
 }
+
+/* int	ft_is_wall(t_game *game, double x, double y)
+{
+	int map_x;
+	int map_y;
+
+	map_x = (int)x;
+	map_y = (int)y;
+	if (map_x < 0 || map_x >= game->map.width || map_y < 0 || map_y >= game->map.height)
+		return (1);
+	if (game->map.grid[map_y][map_x] == '1' || game->map.grid[map_y][map_x] == '2')
+		return (1);
+	return (0);
+}
+
+static void	ft_move_ws(t_game *game, double move_speed)
+{
+	double	new_x;
+	double	new_y;
+
+	if (game->keys.key_w)
+	{
+		new_x = game->player.posX + game->player.dirX * move_speed;
+		new_y = game->player.posY + game->player.dirY * move_speed;
+	}
+	else
+	{
+		new_x = game->player.posX - game->player.dirX * move_speed;
+		new_y = game->player.posY - game->player.dirY * move_speed;
+	}
+	if (ft_is_wall(game, new_x, game->player.posY) == 0)
+		game->player.posX = new_x;
+	if (ft_is_wall(game, game->player.posX, new_y) == 0)
+		game->player.posY = new_y;
+}
+
+static void	ft_move_ad(t_game *game, double move_speed)
+{
+	double	new_x;
+	double	new_y;
+
+	if (game->keys.key_a)
+	{
+		new_x = game->player.posX - game->player.planeX * move_speed;
+		new_y = game->player.posY - game->player.planeY * move_speed;
+	}
+	else
+	{
+		new_x = game->player.posX + game->player.planeX * move_speed;
+		new_y = game->player.posY + game->player.planeY * move_speed;
+	}
+	if (ft_is_wall(game, new_x, game->player.posY) == 0)
+		game->player.posX = new_x;
+	if (ft_is_wall(game, game->player.posX, new_y) == 0)
+		game->player.posY = new_y;
+}
+
+void	player_move(t_game *game)
+{
+	double	move_speed;
+	double	rot_speed;
+
+	move_speed = game->player.move_speed;
+	rot_speed = game->player.rot_speed;
+	if (game->keys.key_w || game->keys.key_s)
+		ft_move_ws(game, move_speed);
+	if (game->keys.key_a || game->keys.key_d)
+		ft_move_ad(game, move_speed);
+	if (game->keys.key_left)
+		rot_move(&game->player, -1);
+	if (game->keys.key_right)
+		rot_move(&game->player, 1);
+} */
 
 double	ray_dist(t_game *game, double dirX, double dirY)
 {

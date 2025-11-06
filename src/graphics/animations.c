@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:42 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/28 12:20:34 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:03:35 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	animation_loop(void *param)
 {

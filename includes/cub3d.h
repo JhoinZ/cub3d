@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 11:35:07 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:16:43 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct s_key_hook
 	int	key_a;
 	int	key_s;
 	int	key_d;
-	int key_right;
+	int	key_right;
 	int	key_left;
 	int	key_e;	
-} t_key_hook;
+}	t_key_hook;
 
 typedef struct s_vertical
 {
@@ -63,7 +63,7 @@ typedef struct s_vertical
 	int		tex_pos;
 	int		color;
 	double	step;
-} t_vertical;
+}	t_vertical;
 
 typedef struct s_ray_result
 {
@@ -80,16 +80,17 @@ typedef struct s_ray_result
 	double	hit_y;
 	int		side;
 	char	type_wall;
-} t_ray_result;
+}	t_ray_result;
 
-typedef struct s_rgb
+/* typedef struct s_rgb
 {
 	int	r;
 	int	g;
 	int	b;
-}	t_rgb;
+}	t_rgb; */
 
-typedef struct	s_player {
+typedef struct s_player
+{
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -100,9 +101,10 @@ typedef struct	s_player {
 	double	rot_speed;
 	char	initial_dir;
 	int		run;
-} t_player;
+}	t_player;
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -112,19 +114,21 @@ typedef struct	s_data {
 	int		height;
 }	t_data;
 
-typedef struct s_map{
+typedef struct s_map
+{
 	char	**grid;
 	int		width;
 	int		height;
 	int		tile_size;
-	t_rgb	floor_color;
-	t_rgb	ceiling_color;
+	int		floor_color;
+	int		ceiling_color;
 	int		without_directions;
 	int		elements_count;
 	char	*textures[4];
-} t_map;
+}	t_map;
 
-typedef struct s_game {
+typedef struct s_game
+{
 	void		*mlx;
 	void		*win;
 	t_data		img;
@@ -171,7 +175,7 @@ double		ray_dist(t_game *game, double dirX, double dirY);
 int			add_shade(double distance, int color);
 int			create_trgb(int t, int r, int g, int b);
 int			is_light(int color);
-int 		choose_color(int side);
+int			choose_color(int side);
 
 /* Draw functions */
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -179,10 +183,13 @@ void		draw_torch(t_data *img, int x, int y, int flame_color);
 void		draw_with_shading(t_data *data);
 void		draw_square(t_data *img, int x, int y, int size, int color);
 void		draw_square2(t_data *img, int x, int y, int size, int color);
-void		draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
-void		draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
+void		draw_rectangle(t_data *img, int start_x,
+				int start_y, int width, int height, int color);
+void		draw_circle(t_data *img, int center_x,
+				int center_y, int radius, int color);
 void		draw_ray(t_game *game, double dirX, double dirY, int color);
-void		draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
+void		draw_vertical_line(t_game *game, int x,
+				int start_y, int end_y, int color);
 void		draw_multiple_rays(t_game *game, int num_rays);
 void		draw_map(t_game *game);
 
@@ -197,7 +204,7 @@ void		cast_ray_dda(t_game *game, t_ray_result *ray);
 void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Errors */
-void    	display_error(int n, char *msg);
+void		display_error(int n, char *msg);
 void		ft_error(int error_code, t_game *game);
 void		ft_error_light(int error_code);
 void		ft_free_mem(t_game *game);
