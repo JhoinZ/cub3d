@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:59:16 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 11:20:52 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:05:54 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	hit_loop(int *mapX, int *mapY, t_ray_result *ray, t_game *game)
 		}
 		if (*mapY >= 0 && *mapY < game->map.height && 
 			*mapX >= 0 && *mapX < game->map.width) {
-			if (game->map.grid[*mapY][*mapX] >= '1')
+			if (game->map.grid[*mapY][*mapX] >= '1' && game->map.grid[*mapY][*mapX] <= '9')
 				hit = 1;
 		}
 		else

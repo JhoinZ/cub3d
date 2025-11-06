@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 13:20:24 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:00:13 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ int	touch2(double px, double py, t_game *game)
 	int 	mapY;
 	double	aux;
 
-	printf("Px: %f\n", px);
-	aux = px + 0.3f;
-	printf("Aux1: %f\n", aux);
+	aux = px + 0.1f;
+	if ((int)(px - 0.1f) < (int)px)
+		aux = px - 0.1f;
 	mapX = (int)(aux);
-	aux = py + 0.3f;
-	//printf("Aux2: %f\n", aux);
+	aux = py + 0.1f;
+	if ((int)(py - 0.1f) < (int)py)
+		aux = py - 0.1f;
 	mapY = (int)(aux);
 	if (game->map.grid[mapY][mapX] >= '1' && game->map.grid[mapY][mapX] <= '9')
 		return (1);
