@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/30 12:33:23 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:10:23 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,25 +84,28 @@ int	colision(t_game *game, t_player player, int n)
 
 void	player_move(t_game *game)
 {
+	int	sh;
+
+	sh = game->player.run;
 	if (game->keys.key_w)
 	{
-		game->player.posX += game->player.dirX * game->player.move_speed;
-		game->player.posY += game->player.dirY * game->player.move_speed;
+		game->player.posX += game->player.dirX * game->player.move_speed * sh;
+		game->player.posY += game->player.dirY * game->player.move_speed * sh;
 	}
 	if (game->keys.key_s)
 	{		
-		game->player.posX -= game->player.dirX * game->player.move_speed;
-		game->player.posY -= game->player.dirY * game->player.move_speed;
+		game->player.posX -= game->player.dirX * game->player.move_speed * sh;
+		game->player.posY -= game->player.dirY * game->player.move_speed * sh;
 	}
 	if (game->keys.key_a)
 	{
-		game->player.posX += game->player.dirY * game->player.move_speed;
-		game->player.posY -= game->player.dirX * game->player.move_speed;
+		game->player.posX += game->player.dirY * game->player.move_speed * sh;
+		game->player.posY -= game->player.dirX * game->player.move_speed * sh;
 	}
 	if (game->keys.key_d)
 	{
-		game->player.posX -= game->player.dirY * game->player.move_speed;
-		game->player.posY += game->player.dirX * game->player.move_speed;
+		game->player.posX -= game->player.dirY * game->player.move_speed * sh;
+		game->player.posY += game->player.dirX * game->player.move_speed * sh;
 	}
 }
 

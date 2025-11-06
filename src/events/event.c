@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 17:20:35 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:10:45 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	key_press(int keycode, t_game *game)
 	else if (keycode == KEY_E)
 		game->keys.key_e = 1;
 	else if (keycode == KEY_SHIFT)
-		game->keys.key_shift = 1;
+		game->player.run = 2;
 	else
    		printf("Kecode of the key pressed: %d\n", keycode);
 	return (0);
@@ -73,6 +73,6 @@ int	key_release(int keycode, t_game *game)
 	if (keycode == KEY_E)
 		game->keys.key_e = 0;
 	if (keycode == KEY_SHIFT)
-		game->keys.key_e = 0;
+		game->player.run = 1;
 	return (0);
 }
