@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:59:16 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/05 20:30:57 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:20:52 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@ void	stepCalculation(int mapX, int mapY, t_ray_result *ray, t_game *game)
 	if (ray->dirX < 0)
 	{
 		ray->stepX = -1;
-		ray->sideDistX = (game->player.posX / game->map.tile_size - mapX) * ray->deltaDistX;
+		ray->sideDistX = (game->player.posX - mapX) * ray->deltaDistX;
 	}
 	else
 	{
 		ray->stepX = 1;
-		ray->sideDistX = (mapX + 1.0 - game->player.posX / game->map.tile_size) * ray->deltaDistX;
+		ray->sideDistX = (mapX + 1.0 - game->player.posX) * ray->deltaDistX;
 	}
 	if (ray->dirY < 0)
 	{
 		ray->stepY = -1;
-		ray->sideDistY = (game->player.posY / game->map.tile_size - mapY) * ray->deltaDistY;
+		ray->sideDistY = (game->player.posY - mapY) * ray->deltaDistY;
 	}
 	else
 	{
 		ray->stepY = 1;
-		ray->sideDistY = (mapY + 1.0 - game->player.posY / game->map.tile_size) * ray->deltaDistY;
+		ray->sideDistY = (mapY + 1.0 - game->player.posY) * ray->deltaDistY;
 		
 	}
 }
@@ -82,19 +82,20 @@ void	cast_ray_dda(t_game *game, t_ray_result *ray)
 	int	mapX;
 	int	mapY;
 	
-	mapX = (int)(game->player.posX / game->map.tile_size);
-	mapY = (int)(game->player.posY / game->map.tile_size);
+	mapX = (int)(game->player.posX);
+	mapY = (int)(game->player.posY);
 	distCalculation(ray);
 	stepCalculation(mapX, mapY, ray, game);
 	hit_loop(&mapX, &mapY, ray, game);
 	if (ray->side == 0)
 	{
-		ray->distance = (mapX - game->player.posX / game->map.tile_size + (1 - ray->stepX) / 2) / ray->dirX;		
+		ray->distance = (mapX - game->player.posX + (1 - ray->stepX) / 2) / ray->dirX;		
 	}
 	else
 	{
-		ray->distance = (mapY - game->player.posY / game->map.tile_size + (1 - ray->stepY) / 2) / ray->dirY;
+		ray->distance = (mapY - game->player.posY + (1 - ray->stepY) / 2) / ray->dirY;
 	}
+	
 	ray->hit_x = game->player.posX + ray->distance * ray->dirX;
 	ray->hit_y = game->player.posY + ray->distance * ray->dirY;
 }

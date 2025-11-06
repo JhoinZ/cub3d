@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/05 20:15:17 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:35:07 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ typedef struct s_vertical
 	int		tex_x;
 	int		tex_y;
 	int		tex_pos;
-	char	*pixel_addr;
-	int		step;
-	double	tex_x_normalized;
+	int		color;
+	double	step;
 } t_vertical;
 
 typedef struct s_ray_result

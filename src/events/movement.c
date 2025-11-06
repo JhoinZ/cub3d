@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/05 18:10:23 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:20:24 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,48 @@ int	touch(double px, double py, t_game *game)
 
 int	touch2(double px, double py, t_game *game)
 {
-	int	mapX;
-	int mapY;
+	int		mapX;
+	int 	mapY;
+	double	aux;
 
-	mapX = (int)(px / game->map.tile_size);
-	mapY = (int)(py / game->map.tile_size);
-	if (game->map.grid[mapY][mapX] >= '1')
+	printf("Px: %f\n", px);
+	aux = px + 0.3f;
+	printf("Aux1: %f\n", aux);
+	mapX = (int)(aux);
+	aux = py + 0.3f;
+	//printf("Aux2: %f\n", aux);
+	mapY = (int)(aux);
+	if (game->map.grid[mapY][mapX] >= '1' && game->map.grid[mapY][mapX] <= '9')
 		return (1);
 	return (0);
 }
 
-int	colision(t_game *game, t_player player, int n)
+int	colision(t_game *game, t_player player, int n, int sh)
 {
+	double	posX;
+	double	posY;
+
 	if (n == 1)
 	{
-		player.posX += player.dirX * player.move_speed;
-		player.posY += player.dirY * player.move_speed;
+		posX = player.posX + (player.dirX * player.move_speed * sh);
+		posY = player.posY + (player.dirY * player.move_speed * sh);
 	}
 	else if (n == 2)
 	{
-		player.posX -= player.dirX * player.move_speed;
-		player.posY -= player.dirY * player.move_speed;
+		posX = player.posX - (player.dirX * player.move_speed * sh);
+		posY = player.posY - (player.dirY * player.move_speed * sh);
 	}
 	else if (n == 3)
 	{
-		player.posX += player.dirY * player.move_speed;
-		player.posY -= player.dirX * player.move_speed;
+		posX = player.posX + (player.dirY * player.move_speed * sh);
+		posY = player.posY - (player.dirX * player.move_speed * sh);
 	}
 	else
 	{
-		player.posX -= player.dirY * player.move_speed;
-		player.posY += player.dirX * player.move_speed;
+		posX = player.posX - (player.dirY * player.move_speed * sh);
+		posY = player.posY + (player.dirX * player.move_speed * sh);
 	}
-	return (touch(player.posX, player.posY, game));
+	return (touch2(posX, posY, game));
 }
 
 void	player_move(t_game *game)
@@ -87,22 +96,22 @@ void	player_move(t_game *game)
 	int	sh;
 
 	sh = game->player.run;
-	if (game->keys.key_w)
+	if (game->keys.key_w && !colision(game, game->player, 1, sh))
 	{
 		game->player.posX += game->player.dirX * game->player.move_speed * sh;
 		game->player.posY += game->player.dirY * game->player.move_speed * sh;
 	}
-	if (game->keys.key_s)
+	if (game->keys.key_s && !colision(game, game->player, 2, sh))
 	{		
 		game->player.posX -= game->player.dirX * game->player.move_speed * sh;
 		game->player.posY -= game->player.dirY * game->player.move_speed * sh;
 	}
-	if (game->keys.key_a)
+	if (game->keys.key_a && !colision(game, game->player, 3, sh))
 	{
 		game->player.posX += game->player.dirY * game->player.move_speed * sh;
 		game->player.posY -= game->player.dirX * game->player.move_speed * sh;
 	}
-	if (game->keys.key_d)
+	if (game->keys.key_d && !colision(game, game->player, 4, sh))
 	{
 		game->player.posX -= game->player.dirY * game->player.move_speed * sh;
 		game->player.posY += game->player.dirX * game->player.move_speed * sh;

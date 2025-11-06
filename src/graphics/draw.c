@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:50 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/01 16:22:50 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:00:10 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-        return;
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+		*(unsigned int*)dst = color;
+	}
 }
 
 void	draw_ray(t_game *game, double dirX, double dirY, int color)
