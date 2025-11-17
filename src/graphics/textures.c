@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 11:39:03 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:48:29 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,14 @@ void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
 	tex_width = texture->width;
 	
 	if (ray.side == 0)
-	{
 		wall_x = ray.hit_y;
-	}
 	else
-	{
 		wall_x = ray.hit_x;
-	}
 	wall_x -= floor(wall_x);
-	v->tex_x = (int)(wall_x * tex_width);
-	if (ray.side == 0 && ray.dirX > 0)
+	v->tex_x = (int)(wall_x * (double)tex_width);
+	if (ray.side == 0 && ray.dirX < 0)
 		v->tex_x = tex_width - v->tex_x - 1;
-	if (ray.side == 1 && ray.dirY < 0)
+	if (ray.side == 1 && ray.dirY > 0)
 		v->tex_x = tex_width - v->tex_x - 1;
 }
 
@@ -91,7 +87,7 @@ void	draw_wall_column(t_vertical *v, t_game *game, t_ray_result ray)
 
 	texture = &game->texture[v->index];
 	step = (double)texture->height / (v->y_end - v->y_start);
-	tex_pos = 0;
+	tex_pos = (v->y_start - HEIGHT / 2 + (v->y_end - v->y_start) / 2) * step;
 	
 	y = v->y_start;
 	while (y < v->y_end)

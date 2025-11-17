@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:39 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 18:00:13 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/17 09:12:26 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	rot_move(t_player *player, int direction)
 	player->dirY = old_dirX * sin(rot_speed) + player->dirY * cos(rot_speed);
 	player->planeX = player->planeX * cos(rot_speed) - player->planeY * sin(rot_speed);
 	player->planeY = old_planeX * sin(rot_speed) + player->planeY * cos(rot_speed);
-
 }
 
 int	touch(double px, double py, t_game *game)
@@ -45,12 +44,12 @@ int	touch(double px, double py, t_game *game)
 	return (0);
 }
 
-int	touch2(double px, double py, t_game *game)
+int	ft_touch(double px, double py, t_game *game)
 {
 	int		mapX;
 	int 	mapY;
 	double	aux;
-
+                         
 	aux = px + 0.1f;
 	if ((int)(px - 0.1f) < (int)px)
 		aux = px - 0.1f;
@@ -89,7 +88,7 @@ int	colision(t_game *game, t_player player, int n, int sh)
 		posX = player.posX - (player.dirY * player.move_speed * sh);
 		posY = player.posY + (player.dirX * player.move_speed * sh);
 	}
-	return (touch2(posX, posY, game));
+	return (ft_touch(posX, posY, game));
 }
 
 void	player_move(t_game *game)
