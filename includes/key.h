@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:56:44 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/10/29 17:26:15 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:42:19 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define KEY_N 110 // N key
 # define KEY_M 109 // M key
 # define KEY_SHIFT 65505 // Shift key
+# define KEY_ENTER 65293 // Enter / Return
 # define MOUSE_UP 4 // Scrol UP
 # define MOUSE_DOWN 5 // Scrol DOWN
 # define MOUSE_WHEEL_BTN 3 // Wheel button

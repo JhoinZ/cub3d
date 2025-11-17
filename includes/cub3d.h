@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 17:16:43 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:57:34 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define HEIGHT 720
 # define PI 3.141592653589
 # define DEBUG 0
+# define STATE_MENU 0
+# define STATE_GAME 1
 
 # include <unistd.h>
 # include <signal.h>
@@ -82,13 +84,6 @@ typedef struct s_ray_result
 	char	type_wall;
 }	t_ray_result;
 
-/* typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb; */
-
 typedef struct s_player
 {
 	double	posX;
@@ -138,7 +133,9 @@ typedef struct s_game
 	int			minimap_scale;
 	t_data		texture[4];
 	t_key_hook	keys;
-	bool		status;
+	t_data      menu_background;
+	int			status;
+	int			menu_selection;
 	int			init_screen;
 }	t_game;
 
@@ -160,6 +157,9 @@ int			ft_endwith(char *str, char *suffix);
 char		*ft_skipspace(char *str);
 int			ft_check_argv(char **av, int ac);
 void		ft_init_tools(t_game *game);
+
+/* Initial menu */
+void		render_menu_overlay(t_game *game);
 
 /* Hook functions */
 int			xclose(t_game *game);
