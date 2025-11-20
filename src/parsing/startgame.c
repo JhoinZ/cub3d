@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startgame.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 10:01:08 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:30:43 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_init_player_vectors(t_game *game)
 		game->player.dirX = -1.0;
 		game->player.planeY = -0.66;
 	}
-	game->player.move_speed = (double)(game->map.tile_size / 700.0f);
+	game->player.move_speed = (double)(game->map.tile_size / 1200.0f);
 	game->player.rot_speed = 0.07f;
 	game->player.run = 1;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:59:16 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 17:04:03 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/20 21:27:34 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	hit_loop(int *mapX, int *mapY, t_ray_result *ray, t_game *game)
 		}
 		if (*mapY >= 0 && *mapY < game->map.height && 
 			*mapX >= 0 && *mapX < game->map.width) {
-			if (game->map.grid[*mapY][*mapX] >= '1')
+			if (game->map.grid[*mapY][*mapX] >= '1' && game->map.grid[*mapY][*mapX] <= '9')
 				hit = 1;
 		}
 		else
@@ -89,11 +89,11 @@ void	cast_ray_dda(t_game *game, t_ray_result *ray)
 	hit_loop(&mapX, &mapY, ray, game);
 	if (ray->side == 0)
 	{
-		ray->distance = (mapX - game->player.posX + (1 - ray->stepX) / 2) / ray->dirX;		
+		ray->distance = ray->sideDistX - ray->deltaDistX;
 	}
 	else
 	{
-		ray->distance = (mapY - game->player.posY + (1 - ray->stepY) / 2) / ray->dirY;
+		ray->distance = ray->sideDistY - ray->deltaDistY;
 	}
 	
 	ray->hit_x = game->player.posX + ray->distance * ray->dirX;

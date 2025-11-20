@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/17 11:41:28 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/20 21:27:06 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	game_loop(void *param)
 	
 	game = (t_game *)param;
 	player_actions(game);
-	clear_screen(game, 0x00224466);
+	clear_screen(game, 0x000C0C0C);
 	if (DEBUG)
 	{
 		draw_map(game);
