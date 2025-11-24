@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/24 16:59:25 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:34:20 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 int	game_loop(void *param)
 {
 	t_game			*game;
-	int				size_player;
 	
 	game = (t_game *)param;
 	player_actions(game);
 	clear_screen(game, 0x000C0C0C);
 	if (game->status == STATE_MENU)
-	{
 		draw_menu(game);
-	}
 	else
 	{
 		if (!game->init_screen)
