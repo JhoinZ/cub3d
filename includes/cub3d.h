@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/20 21:31:34 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:43:43 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int			ft_check_argv(char **av, int ac);
 void		ft_init_tools(t_game *game);
 
 /* Initial menu */
-void		render_menu_overlay(t_game *game);
+void		draw_menu(t_game *game);
 
 /* Hook functions */
 int			xclose(t_game *game);

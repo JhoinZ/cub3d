@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/24 15:41:52 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 16:59:25 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@ int	game_loop(void *param)
 	game = (t_game *)param;
 	player_actions(game);
 	clear_screen(game, 0x000C0C0C);
-	if (DEBUG)
+	if (game->status == STATE_MENU)
 	{
-		draw_map(game);
-		size_player = (int)(game->map.tile_size / (game->player.move_speed * 1.5));
-		draw_square(&game->img, (int)(game->player.posX - (size_player / 2)),
-				(int)(game->player.posY - (size_player / 2)), size_player, 0x00FF00);
-		draw_multiple_rays(game, WIDTH);
+		draw_menu(game);
 	}
 	else
 	{
