@@ -6,11 +6,24 @@
 /*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/12 20:30:43 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/24 18:52:00 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	load_texture(t_game *game, t_data *data)
+{
+	int	width;
+	int	height;
+
+	data->img = mlx_xpm_file_to_image(game->mlx, "textures/MenuControles.xpm", &width, &height);
+	if (!data->img)
+		ft_error(12, game);
+	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
+	data->width = width;
+	data->height = height;
+}
 
 void	load_textures(t_game *game)
 {
@@ -51,6 +64,7 @@ void	ft_setup_mlx_and_game(t_game *game)
 			&game->img.line_length,
 			&game->img.endian);
 	load_textures(game);
+	load_texture(game, &game->controls_menu);
 }
 
 void	ft_init_player_vectors(t_game *game)
@@ -78,7 +92,7 @@ void	ft_init_player_vectors(t_game *game)
 		game->player.dirX = -1.0;
 		game->player.planeY = -0.66;
 	}
-	game->player.move_speed = (double)(game->map.tile_size / 1200.0f);
+	game->player.move_speed = 0.05f;
 	game->player.rot_speed = 0.07f;
 	game->player.run = 1;
 }

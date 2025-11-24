@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/20 18:13:50 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:11:04 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	get_pixel_color(t_data *texture, int x, int y)
 {
 	char	*dst;
 	
-/* 	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-		return (0); */
+	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
+		return (0);
 	dst = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
 	return (*(int*)dst);
 }

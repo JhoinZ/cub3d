@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:09:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/04 11:49:01 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 11:32:47 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_init_tools(t_game *game)
 	game->map.elements_count = 0;
 	game->status = false;
 	game->player.initial_dir = 0;
+	game->in_menu = 0;
 }
 
 int	ft_check_argv(char **av, int ac)

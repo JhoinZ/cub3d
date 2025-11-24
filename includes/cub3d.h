@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 17:41:59 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:18:43 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ typedef struct s_key_hook
 	int	key_d;
 	int key_right;
 	int	key_left;
-	int	key_e;	
+	int	key_e;
+	int	key_m;
+	int	key_tab;
 } t_key_hook;
 
 typedef struct s_vertical
@@ -98,7 +100,7 @@ typedef struct	s_player {
 	double	move_speed;
 	double	rot_speed;
 	char	initial_dir;
-	int		run;
+	double	run;
 } t_player;
 
 typedef struct	s_data {
@@ -132,8 +134,10 @@ typedef struct s_game {
 	int			frame_count;
 	int			minimap_scale;
 	t_data		texture[4];
+	t_data		controls_menu;
 	t_key_hook	keys;
 	bool		status;
+	int			in_menu;
 	int			init_screen;
 }	t_game;
 
@@ -171,6 +175,7 @@ int			add_shade(double distance, int color);
 int			create_trgb(int t, int r, int g, int b);
 int			is_light(int color);
 int 		choose_color(int side);
+int			get_pixel_color(t_data *texture, int x, int y);
 
 /* Draw functions */
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);

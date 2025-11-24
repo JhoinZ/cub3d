@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 11:22:12 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:02:55 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	ft_full_parsing(char **av, int ac, t_game *game)
 {
 	int		fd;
 	char	*map_buffer;
+	double	aux1;
+	double	aux2;
 
 	ft_init_tools(game);
 	fd = ft_check_argv(av, ac);
@@ -110,7 +112,12 @@ void	ft_full_parsing(char **av, int ac, t_game *game)
 	ft_validate_map(game);
 	if (game->map.width == 0)
 		ft_error(11, game);
-	game->map.tile_size = (WIDTH / game->map.width);
+	aux1 = (double)game->map.width / (double)game->map.height;
+	aux2 = (double)WIDTH / (double)HEIGHT;
+	if (aux1 <= aux2)
+		game->map.tile_size = (HEIGHT / game->map.height);
+	else
+		game->map.tile_size = (WIDTH/ game->map.width);
 	game->player.posX = game->player.posX;
 	game->player.posY = game->player.posY;
 }
