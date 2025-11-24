@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/20 21:27:06 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:41:52 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,10 @@ int	game_loop(void *param)
 				(int)(game->player.posY - (size_player / 2)), size_player, 0x00FF00);
 		draw_multiple_rays(game, WIDTH);
 	}
-	if (game->status == STATE_GAME)
+	else
 	{
 		if (!game->init_screen)
 			ray_casting_loop(game);
-	}
-	else
-	{
-		render_menu_overlay(game);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:50 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 17:18:35 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:45:48 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_ray(t_game *game, double dirX, double dirY, int color)
 void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color)
 {
 	int	y;
-
+	
 	if (start_y < 0)
 		start_y = 0;
 	if (end_y >= HEIGHT)

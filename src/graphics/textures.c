@@ -6,12 +6,11 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/20 21:28:14 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:54:53 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 double	distance_factor(double distance)
 {
@@ -113,7 +112,8 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 	int	r;
 	int	g;
 	int	b;
-	int	col;
+	int	floor;
+	int	ceiling;
 
 	if (ray.distance < 0.1)
 		ray.distance = 0.1;
@@ -122,13 +122,15 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 	draw_wall_column(v, game, ray);
 	if (v->y_end - v->y_start < HEIGHT)
 	{
-		r = game->map.ceiling_color.r;
-		g = game->map.ceiling_color.g;
-		b = game->map.ceiling_color.b;
+		ceiling = game->map.ceiling_color;
+		r = (ceiling >> 16) & 0xFF;
+		g = (ceiling >> 8) & 0xFF;
+		b = ceiling & 0xFF;
 		draw_vertical_line(game, v->x, 0, v->y_start - 1, create_trgb(255, r, g, b));
-		r = game->map.floor_color.r;
-		g = game->map.floor_color.g;
-		b = game->map.floor_color.b;
+		floor = game->map.floor_color;
+		r = (floor >> 16) & 0xFF;
+		g = (floor >> 8) & 0xFF;
+		b = floor & 0xFF;
 		draw_vertical_line(game, v->x, v->y_end - 3, HEIGHT - 1, create_trgb(255, r, g, b));
 	}
 }
