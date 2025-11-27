@@ -6,7 +6,7 @@
 /*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/24 19:18:43 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:11:33 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,17 +178,21 @@ int 		choose_color(int side);
 int			get_pixel_color(t_data *texture, int x, int y);
 
 /* Draw functions */
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		draw_torch(t_data *img, int x, int y, int flame_color);
-void		draw_with_shading(t_data *data);
-void		draw_square(t_data *img, int x, int y, int size, int color);
-void		draw_square2(t_data *img, int x, int y, int size, int color);
-void		draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
-void		draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
-void		draw_ray(t_game *game, double dirX, double dirY, int color);
-void		draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
-void		draw_multiple_rays(t_game *game, int num_rays);
-void		draw_map(t_game *game);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	draw_torch(t_data *img, int x, int y, int flame_color);
+void	draw_with_shading(t_data *data);
+void	draw_square(t_data *img, int x, int y, int size, int color);
+void	draw_square2(t_data *img, int x, int y, int size, int color);
+void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
+void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
+void	draw_ray(t_game *game, double dirX, double dirY, int color);
+void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
+void	draw_multiple_rays(t_game *game, int num_rays);
+void	draw_map1(t_game *game, int rel_width, int rel_begin);
+void	draw_map2(t_game *game, int rel_height, int rel_begin);
+void	print_map(t_game *game);
+void	print_menu(t_game *game);
+void	print_mini_map(t_game *game);
 
 /* Animation functions */
 void		animate_torch_smooth(t_data *img, int x, int y, float time);
