@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/24 17:43:43 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:25:48 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define DEBUG 0
 # define STATE_MENU 0
 # define STATE_GAME 1
+# define STATE_MENUINGAME 2
 
 # include <unistd.h>
 # include <signal.h>
