@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 11:57:12 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:05:05 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ typedef struct s_ray_result
 	char	type_wall;
 } t_ray_result;
 
-typedef struct s_rgb
+/* typedef struct s_rgb
 {
 	int	r;
 	int	g;
 	int	b;
-}	t_rgb;
+}	t_rgb; */
 
 typedef struct	s_player {
 	double	posX;
@@ -118,8 +118,8 @@ typedef struct s_map{
 	int		width;
 	int		height;
 	int		tile_size;
-	t_rgb	floor_color;
-	t_rgb	ceiling_color;
+	int		floor_color;
+	int		ceiling_color;
 	int		without_directions;
 	int		elements_count;
 	char	*textures[4];

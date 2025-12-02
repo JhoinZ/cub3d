@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/24 19:11:04 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:56:27 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,6 @@ void	draw_wall_column(t_vertical *v, t_game *game, t_ray_result ray)
 
 void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 {
-	int	r;
-	int	g;
-	int	b;
-
 	if (ray.distance < 0.1)
 		ray.distance = 0.1;
 	v->index = get_wall_c(ray.side, ray.stepX, ray.stepY);
@@ -121,13 +117,7 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 	draw_wall_column(v, game, ray);
 	if (v->y_end - v->y_start < HEIGHT)
 	{
-		r = game->map.ceiling_color.r;
-		g = game->map.ceiling_color.g;
-		b = game->map.ceiling_color.b;
-		draw_vertical_line(game, v->x, 0, v->y_start - 1, create_trgb(255, r, g, b));
-		r = game->map.floor_color.r;
-		g = game->map.floor_color.g;
-		b = game->map.floor_color.b;
-		draw_vertical_line(game, v->x, v->y_end - 3, HEIGHT - 1, create_trgb(255, r, g, b));
+		draw_vertical_line(game, v->x, 0, v->y_start - 1, game->map.ceiling_color);
+		draw_vertical_line(game, v->x, v->y_end - 3, HEIGHT - 1, game->map.floor_color);
 	}
 }
