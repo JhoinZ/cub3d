@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startgame.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/24 18:52:00 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:02:42 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ void	ft_setup_mlx_and_game(t_game *game)
 			&game->img.endian);
 	load_textures(game);
 	load_texture(game, &game->controls_menu);
+	game->menu_background.img = mlx_xpm_file_to_image(game->mlx,
+		"textures/Menu_inicial.xpm",
+		&game->menu_background.width,
+		&game->menu_background.height);
+	if (game->menu_background.img)
+	{
+		game->menu_background.addr = mlx_get_data_addr(game->menu_background.img,
+			&game->menu_background.bpp,
+			&game->menu_background.line_length,
+			&game->menu_background.endian);
+	}
 }
 
 void	ft_init_player_vectors(t_game *game)

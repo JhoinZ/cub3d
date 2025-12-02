@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/27 19:54:13 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:31:43 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,27 @@ void	draw_map2(t_game *game, int rel_height, int rel_begin)
 	}
 }
 
+static void	draw_bold_text_menu(t_game *game, int x, int y, int color, char *text)
+{
+	mlx_string_put(game->mlx, game->win, x, y, color, text);
+	mlx_string_put(game->mlx, game->win, x + 1, y, color, text);
+	mlx_string_put(game->mlx, game->win, x, y + 1, color, text);
+	mlx_string_put(game->mlx, game->win, x + 1, y + 1, color, text);
+}
+
 void	print_menu(t_game *game)
 {
 	int	x;
 	int	y;
 
-	clear_screen(game, 0x000C0C0C);
+	clear_screen(game, 0x000000);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	x = (WIDTH - game->controls_menu.width) / 2;
 	y = (HEIGHT - game->controls_menu.height) / 2;
 	mlx_put_image_to_window(game->mlx, game->win, game->controls_menu.img, x, y);
+	if (game->prev_state == STATE_START)
+		draw_bold_text_menu(game, WIDTH / 2 - 75, HEIGHT - 50,
+			0xFF0000, "Press TAB to return");
 }
 
 void	print_map(t_game *game)

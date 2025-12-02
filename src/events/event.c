@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:47:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/24 18:18:37 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:59:24 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	xclose(t_game *game)
 // Main function when a key is pressed
 int	key_press(int keycode, t_game *game)
 {
+	if (game->state == STATE_START)
+		handle_start_menu_input(keycode, game);
 	if (keycode == KEY_ESC)
 		xclose(game);
 	else if (keycode == KEY_W)
@@ -46,7 +48,7 @@ int	key_press(int keycode, t_game *game)
 
 void	player_actions(t_game *game)
 {
-	if (!game->in_menu)
+	if (game->state == STATE_GAME)
 	{
 		player_move(game);
 		if (game->keys.key_left)
@@ -77,13 +79,28 @@ int	key_release(int keycode, t_game *game)
 		game->keys.key_e = 0;
 	if (keycode == KEY_SHIFT)
 		game->player.run = 1;
-	if (keycode == KEY_M && game->in_menu == 2)
-		game->in_menu = 0;
-	else if (keycode == KEY_M && !game->in_menu)
-		game->in_menu = 2;
-	if (keycode == KEY_TAB && game->in_menu == 1)
-		game->in_menu = 0;
-	else if (keycode == KEY_TAB && !game->in_menu)
-		game->in_menu = 1;
+	if (keycode == KEY_M && game->state == STATE_MAP)
+		game->state = STATE_GAME;
+	else if (keycode == KEY_M && game->state == STATE_GAME)
+		game->state = STATE_MAP;
+	if (keycode == KEY_TAB && game->state == STATE_MENU)
+	{
+		if (game->prev_state == STATE_START)
+			game->state = STATE_START;
+		else
+			game->state = STATE_GAME;
+	}
+	else if (keycode == KEY_TAB && game->state == STATE_GAME)
+	{
+		game->prev_state = STATE_GAME;
+		game->state = STATE_MENU;
+	}
+	if (keycode == KEY_ESC && game->state == STATE_MENU)
+	{
+		if (game->prev_state == STATE_START)
+			game->state = STATE_START;
+		else
+			game->state = STATE_GAME;
+	}
 	return (0);
 }

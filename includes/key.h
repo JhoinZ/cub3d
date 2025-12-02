@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:56:44 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/23 21:55:03 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:57:27 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@
 # define MOUSE_WHEEL_BTN 3 // Wheel button
 # define MOUSE_LEFT 1 // Left click
 # define MOUSE_RIGHT 2 // Right click
+# define KEY_ENTER 65293 // Enter/Return key
 
 #endif

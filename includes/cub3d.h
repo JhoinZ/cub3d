@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 13:05:05 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:51:12 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define DEBUG 0
 
 # include <unistd.h>
 # include <signal.h>
@@ -39,6 +38,14 @@
 # define MGT			"\033[1;35m" // Magenta brillante
 # define CYN			"\033[1;36m" // Ciano brillante
 # define WIT			"\033[1;37m" // Bianco brillante
+
+typedef enum e_game_state
+{
+	STATE_START,
+	STATE_GAME,
+	STATE_MENU,
+	STATE_MAP
+}	t_game_state;
 
 typedef struct s_key_hook
 {
@@ -82,13 +89,6 @@ typedef struct s_ray_result
 	int		side;
 	char	type_wall;
 } t_ray_result;
-
-/* typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb; */
 
 typedef struct	s_player {
 	double	posX;
@@ -136,11 +136,12 @@ typedef struct s_game {
 	t_data		texture[4];
 	t_data		controls_menu;
 	t_key_hook	keys;
-	bool		status;
 	int			in_menu;
 	int			init_screen;
 	t_data		menu_background;
 	int			menu_selection;
+	t_game_state	state;
+	t_game_state	prev_state;
 }	t_game;
 
 /* parsing functions */
@@ -161,6 +162,10 @@ int			ft_endwith(char *str, char *suffix);
 char		*ft_skipspace(char *str);
 int			ft_check_argv(char **av, int ac);
 void		ft_init_tools(t_game *game);
+
+/* Start menu */
+void		print_start(t_game *game);
+void		handle_start_menu_input(int keycode, t_game *game);
 
 /* Hook functions */
 int			xclose(t_game *game);
