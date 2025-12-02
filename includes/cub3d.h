@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 11:25:48 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:11:33 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define DEBUG 0
-# define STATE_MENU 0
-# define STATE_GAME 1
-# define STATE_MENUINGAME 2
 
 # include <unistd.h>
 # include <signal.h>
@@ -49,10 +46,12 @@ typedef struct s_key_hook
 	int	key_a;
 	int	key_s;
 	int	key_d;
-	int	key_right;
+	int key_right;
 	int	key_left;
-	int	key_e;	
-}	t_key_hook;
+	int	key_e;
+	int	key_m;
+	int	key_tab;
+} t_key_hook;
 
 typedef struct s_vertical
 {
@@ -65,7 +64,7 @@ typedef struct s_vertical
 	int		tex_pos;
 	int		color;
 	double	step;
-}	t_vertical;
+} t_vertical;
 
 typedef struct s_ray_result
 {
@@ -82,10 +81,16 @@ typedef struct s_ray_result
 	double	hit_y;
 	int		side;
 	char	type_wall;
-}	t_ray_result;
+} t_ray_result;
 
-typedef struct s_player
+typedef struct s_rgb
 {
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
+typedef struct	s_player {
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -95,11 +100,10 @@ typedef struct s_player
 	double	move_speed;
 	double	rot_speed;
 	char	initial_dir;
-	int		run;
-}	t_player;
+	double	run;
+} t_player;
 
-typedef struct s_data
-{
+typedef struct	s_data {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -109,21 +113,19 @@ typedef struct s_data
 	int		height;
 }	t_data;
 
-typedef struct s_map
-{
+typedef struct s_map{
 	char	**grid;
 	int		width;
 	int		height;
 	int		tile_size;
-	int		floor_color;
-	int		ceiling_color;
+	t_rgb	floor_color;
+	t_rgb	ceiling_color;
 	int		without_directions;
 	int		elements_count;
 	char	*textures[4];
-}	t_map;
+} t_map;
 
-typedef struct s_game
-{
+typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	t_data		img;
@@ -132,10 +134,10 @@ typedef struct s_game
 	int			frame_count;
 	int			minimap_scale;
 	t_data		texture[4];
+	t_data		controls_menu;
 	t_key_hook	keys;
-	t_data      menu_background;
-	int			status;
-	int			menu_selection;
+	bool		status;
+	int			in_menu;
 	int			init_screen;
 }	t_game;
 
@@ -158,9 +160,6 @@ char		*ft_skipspace(char *str);
 int			ft_check_argv(char **av, int ac);
 void		ft_init_tools(t_game *game);
 
-/* Initial menu */
-void		draw_menu(t_game *game);
-
 /* Hook functions */
 int			xclose(t_game *game);
 int			key_press(int keycode, t_game *game);
@@ -175,23 +174,25 @@ double		ray_dist(t_game *game, double dirX, double dirY);
 int			add_shade(double distance, int color);
 int			create_trgb(int t, int r, int g, int b);
 int			is_light(int color);
-int			choose_color(int side);
+int 		choose_color(int side);
+int			get_pixel_color(t_data *texture, int x, int y);
 
 /* Draw functions */
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		draw_torch(t_data *img, int x, int y, int flame_color);
-void		draw_with_shading(t_data *data);
-void		draw_square(t_data *img, int x, int y, int size, int color);
-void		draw_square2(t_data *img, int x, int y, int size, int color);
-void		draw_rectangle(t_data *img, int start_x,
-				int start_y, int width, int height, int color);
-void		draw_circle(t_data *img, int center_x,
-				int center_y, int radius, int color);
-void		draw_ray(t_game *game, double dirX, double dirY, int color);
-void		draw_vertical_line(t_game *game, int x,
-				int start_y, int end_y, int color);
-void		draw_multiple_rays(t_game *game, int num_rays);
-void		draw_map(t_game *game);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	draw_torch(t_data *img, int x, int y, int flame_color);
+void	draw_with_shading(t_data *data);
+void	draw_square(t_data *img, int x, int y, int size, int color);
+void	draw_square2(t_data *img, int x, int y, int size, int color);
+void	draw_rectangle(t_data *img, int start_x, int start_y, int width, int height, int color);
+void	draw_circle(t_data *img, int center_x, int center_y, int radius, int color);
+void	draw_ray(t_game *game, double dirX, double dirY, int color);
+void	draw_vertical_line(t_game *game, int x, int start_y, int end_y, int color);
+void	draw_multiple_rays(t_game *game, int num_rays);
+void	draw_map1(t_game *game, int rel_width, int rel_begin);
+void	draw_map2(t_game *game, int rel_height, int rel_begin);
+void	print_map(t_game *game);
+void	print_menu(t_game *game);
+void	print_mini_map(t_game *game);
 
 /* Animation functions */
 void		animate_torch_smooth(t_data *img, int x, int y, float time);
@@ -204,7 +205,7 @@ void		cast_ray_dda(t_game *game, t_ray_result *ray);
 void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Errors */
-void		display_error(int n, char *msg);
+void    	display_error(int n, char *msg);
 void		ft_error(int error_code, t_game *game);
 void		ft_error_light(int error_code);
 void		ft_free_mem(t_game *game);

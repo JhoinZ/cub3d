@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 18:44:31 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:02:55 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,35 @@ int	ft_parse_element(char *line, t_game *game)
 	if (data[0] == '\0')
 		return (0);
 	if (!ft_strncmp(data, "NO ", 3))
-		return (ft_texture(data, game, "NO"), 1);
-	else if (!ft_strncmp(data, "SO ", 3))	
-		return (ft_texture(data, game, "SO"), 1);
+	{
+		ft_texture(data, game, "NO");
+		return (1);
+	}
+	else if (!ft_strncmp(data, "SO ", 3))
+	{
+		ft_texture(data, game, "SO");
+		return (1);
+	}
 	else if (!ft_strncmp(data, "WE ", 3))
-		return (ft_texture(data, game, "WE"), 1);
+	{
+		ft_texture(data, game, "WE");
+		return (1);
+	}
 	else if (!ft_strncmp(data, "EA ", 3))
-		return (ft_texture(data, game, "EA"), 1);
+	{
+		ft_texture(data, game, "EA");
+		return (1);
+	}
 	else if (!ft_strncmp(data, "F ", 2))
-		return (ft_color(data, game, "F"), 1);
+	{
+		ft_color(data, game, "F");
+		return (1);
+	}
 	else if (!ft_strncmp(data, "C ", 2))
-		return (ft_color(data, game, "C"), 1);
+	{
+		ft_color(data, game, "C");
+		return (1);
+	}
 	else
 		return (0);
 }
@@ -83,6 +101,8 @@ void	ft_full_parsing(char **av, int ac, t_game *game)
 {
 	int		fd;
 	char	*map_buffer;
+	double	aux1;
+	double	aux2;
 
 	ft_init_tools(game);
 	fd = ft_check_argv(av, ac);
@@ -92,7 +112,12 @@ void	ft_full_parsing(char **av, int ac, t_game *game)
 	ft_validate_map(game);
 	if (game->map.width == 0)
 		ft_error(11, game);
-	game->map.tile_size = (WIDTH / game->map.width);
+	aux1 = (double)game->map.width / (double)game->map.height;
+	aux2 = (double)WIDTH / (double)HEIGHT;
+	if (aux1 <= aux2)
+		game->map.tile_size = (HEIGHT / game->map.height);
+	else
+		game->map.tile_size = (WIDTH/ game->map.width);
 	game->player.posX = game->player.posX;
 	game->player.posY = game->player.posY;
 }

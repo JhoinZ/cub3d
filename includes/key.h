@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:56:44 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/17 11:42:19 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/11/23 21:55:03 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # define KEY_E 101 // E key
 # define KEY_C 99 // C key
 # define KEY_N 110 // N key
-# define KEY_M 109 // M key
+# define KEY_M 109 // M key to see the big map
 # define KEY_SHIFT 65505 // Shift key
-# define KEY_ENTER 65293 // Enter / Return
+# define KEY_TAB 65289 // Tab key
 # define MOUSE_UP 4 // Scrol UP
 # define MOUSE_DOWN 5 // Scrol DOWN
 # define MOUSE_WHEEL_BTN 3 // Wheel button
