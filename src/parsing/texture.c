@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 16:55:56 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/06 17:28:57 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:57:12 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_color(char *data, t_game *game, char *id)
 	int		r;
 	int		g;
 	int		b;
-	int		packed_color;
 
 	if (!data)
 		ft_error(7, game);
@@ -90,18 +89,21 @@ void	ft_color(char *data, t_game *game, char *id)
 		ft_free_split(parts);
 		ft_error(5, game);
 	}
-	packed_color = create_trgb(0, r, g, b);
 	if (!ft_strncmp(id, "F", 1))
 	{
-		if (game->map.floor_color != -1)
+		if (game->map.floor_color.r != -1)
 			ft_error(6, game);
-		game->map.floor_color = packed_color;
+		game->map.floor_color.r = r;
+		game->map.floor_color.g = g;
+		game->map.floor_color.b = b;
 	}
 	else if (!ft_strncmp(id, "C", 1))
 	{
-		if (game->map.ceiling_color != -1)
+		if (game->map.ceiling_color.r != -1)
 			ft_error(6, game);
-		game->map.ceiling_color = packed_color;
+		game->map.ceiling_color.r = r;
+		game->map.ceiling_color.g = g;
+		game->map.ceiling_color.b = b;
 	}
 	ft_free_split(parts);
 }
