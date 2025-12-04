@@ -3,46 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   map_creation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/04 12:41:14 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:54:26 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	ft_check_player_pos(char c, t_game *game, int col, int row)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	{
+		game->player.initial_dir = c;
+		game->player.posX = col + 0.5;
+		game->player.posY = row + 0.5;
+		return (1);
+	}
+	else if (c != '0' && c != '1' && c != ' ')
+		ft_error(8, game);
+	return (0);
+}
+
+static void	ft_scan_row(t_game *game, int row_index, int *player_count)
+{
+	int	col_index;
+	int	row_length;
+
+	row_length = ft_strlen(game->map.grid[row_index]);
+	if (row_length > game->map.width)
+		game->map.width = row_length;
+	col_index = 0;
+	while (game->map.grid[row_index][col_index])
+	{
+		*player_count += ft_check_player_pos(game->map.grid
+			[row_index][col_index], game, col_index, row_index);
+		col_index++;
+	}
+}
+
 void	ft_scan_and_validate(t_game *game)
 {
-	char	c;
-	int		player_count;
-	int		row_index;
-	int		col_index;
-	int		row_lenght;
+	int	player_count;
+	int	row_index;
 
 	player_count = 0;
 	row_index = 0;
-	row_lenght = 0;
 	while (game->map.grid[row_index])
 	{
-		row_lenght = ft_strlen(game->map.grid[row_index]);
-		if (row_lenght > game->map.width)
-			game->map.width = row_lenght;
-		col_index = 0;
-		while (game->map.grid[row_index][col_index])
-		{
-			c = game->map.grid[row_index][col_index];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-			{
-				player_count++;
-				game->player.initial_dir = c;
-				game->player.posX = col_index + 0.5;
-				game->player.posY = row_index + 0.5;
-			}
-			else if (c != '0' && c != '1' && c != ' ')
-				ft_error(8, game);
-			col_index++;
-		}
+		ft_scan_row(game, row_index, &player_count);
 		row_index++;
 	}
 	game->map.height = row_index;
@@ -50,12 +60,38 @@ void	ft_scan_and_validate(t_game *game)
 		ft_error(9, game);
 }
 
+static void	ft_alloc_new_row(t_game *game, char **new_grid, int row)
+{
+	new_grid[row] = malloc(sizeof(char) * (game->map.width + 1));
+	if (!new_grid[row])
+	{
+		ft_free_split(new_grid);
+		ft_error(10, game);
+	}
+}
+
+static void	ft_fill_row(t_game *game, char **new_grid, int row)
+{
+	int	col;
+	int	original_len;
+
+	original_len = ft_strlen(game->map.grid[row]);
+	col = 0;
+	while (col < game->map.width)
+	{
+		if (col < original_len)
+			new_grid[row][col] = game->map.grid[row][col];
+		else
+			new_grid[row][col] = '2';
+		col++;
+	}
+	new_grid[row][col] = '\0';
+}
+
 void	ft_rectify_map(t_game *game)
 {
-	int		original_row;
 	char	**new_grid;
 	int		r;
-	int		c;
 
 	new_grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!new_grid)
@@ -63,23 +99,8 @@ void	ft_rectify_map(t_game *game)
 	r = 0;
 	while (r < game->map.height)
 	{
-		new_grid[r] = malloc(sizeof(char) * (game->map.width + 1));
-		if (!new_grid[r])
-		{
-			ft_free_split(new_grid);
-			ft_error(10, game);
-		}
-		original_row = ft_strlen(game->map.grid[r]);
-		c = 0;
-		while (c < game->map.width)
-		{
-			if (c < original_row)
-				new_grid[r][c] = game->map.grid[r][c];
-			else
-				new_grid[r][c] = '2';
-			c++;
-		}
-		new_grid[r][c] = '\0';
+		ft_alloc_new_row(game, new_grid, r);
+		ft_fill_row(game, new_grid, r);
 		r++;
 	}
 	new_grid[r] = NULL;

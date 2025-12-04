@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 16:51:12 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:53:14 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef enum e_game_state
 	STATE_MENU,
 	STATE_MAP
 }	t_game_state;
+
+typedef struct s_text_pos
+{
+	int	x;
+	int	y;
+	int	color;
+}	t_text_pos;
 
 typedef struct s_key_hook
 {

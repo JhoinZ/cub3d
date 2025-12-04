@@ -6,45 +6,59 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 16:44:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 17:23:41 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:53:14 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_bold_text(t_game *game, int x, int y, int color, char *text)
+static void	draw_bold_text(t_game *game, t_text_pos pos, char *text)
 {
-	mlx_string_put(game->mlx, game->win, x, y, color, text);
-	mlx_string_put(game->mlx, game->win, x + 1, y, color, text);
-	mlx_string_put(game->mlx, game->win, x, y + 1, color, text);
-	mlx_string_put(game->mlx, game->win, x + 1, y + 1, color, text);
+	mlx_string_put(game->mlx, game->win, pos.x, pos.y, pos.color, text);
+	mlx_string_put(game->mlx, game->win, pos.x + 1, pos.y, pos.color, text);
+	mlx_string_put(game->mlx, game->win, pos.x, pos.y + 1, pos.color, text);
+	mlx_string_put(game->mlx, game->win, pos.x + 1, pos.y + 1, pos.color, text);
+}
+
+static void	ft_draw_menu_option(t_game *game, int option, int y, char *text)
+{
+	t_text_pos	pos;
+
+	pos.x = WIDTH / 2 - 50;
+	pos.y = y;
+	if (game->menu_selection == option)
+		pos.color = 0xFF0000;
+	else
+		pos.color = 0xFFFFFF;
+	draw_bold_text(game, pos, text);
+}
+
+static void	ft_draw_all_menu_items(t_game *game)
+{
+	int	y;
+
+	y = HEIGHT / 2 - 50;
+	ft_draw_menu_option(game, 0, y, "> START GAME <");
+	y += 70;
+	ft_draw_menu_option(game, 1, y, "> CONTROLS <");
+	y += 70;
+	ft_draw_menu_option(game, 2, y, "> EXIT <");
 }
 
 void	print_start(t_game *game)
 {
-	int	y;
+	t_text_pos	hint;
 
 	clear_screen(game, 0x000000);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	if (game->menu_background.img)
-		mlx_put_image_to_window(game->mlx, game->win, game->menu_background.img, 0, 0);
-	y = HEIGHT / 2 - 50;
-	if (game->menu_selection == 0)
-		draw_bold_text(game, WIDTH / 2 - 50, y, 0xFF0000, "> START GAME <");
-	else
-		draw_bold_text(game, WIDTH / 2 - 50, y, 0xFFFFFF, "  START GAME  ");
-	y += 70;
-	if (game->menu_selection == 1)
-		draw_bold_text(game, WIDTH / 2 - 42, y, 0xFF0000, "> CONTROLS <");
-	else
-		draw_bold_text(game, WIDTH / 2 - 42, y, 0xFFFFFF, "  CONTROLS  ");
-	y += 70;
-	if (game->menu_selection == 2)
-		draw_bold_text(game, WIDTH / 2 - 28, y, 0xFF0000, "> EXIT <");
-	else
-		draw_bold_text(game, WIDTH / 2 - 28, y, 0xFFFFFF, "  EXIT  ");
-	draw_bold_text(game, WIDTH / 2 - 135, HEIGHT - 50,
-		0xFF0000, "Use UP/DOWN arrows, ENTER to select");
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->menu_background.img, 0, 0);
+	ft_draw_all_menu_items(game);
+	hint.x = WIDTH / 2 - 135;
+	hint.y = HEIGHT - 50;
+	hint.color = 0xFF0000;
+	draw_bold_text(game, hint, "Use UP/DOWN arrows, ENTER to select");
 }
 
 void	handle_start_menu_input(int keycode, t_game *game)

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 17:04:28 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/04 17:04:07 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -42,7 +41,7 @@ void	free_textures(t_game *game)
 
 void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	if (map && map->grid)
 	{

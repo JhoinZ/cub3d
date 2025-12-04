@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:09:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/02 16:31:12 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/04 17:04:07 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_init_tools(t_game *game)
 {
-	int i;
+	int	i;
 
 	ft_memset(game, 0, sizeof(t_game));
 	game->mlx = NULL;
