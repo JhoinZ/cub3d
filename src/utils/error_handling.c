@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 17:06:12 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:43:48 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ static void	ft_free_map_textures(t_game *game)
 			game->map.textures[i] = NULL;
 		}
 		i++;
+	}
+	if (game->menu_background.img)
+	{
+		mlx_destroy_image(game->mlx, game->menu_background.img);
+		game->menu_background.img = NULL;
+	}
+	if (game->controls_menu.img)
+	{
+		mlx_destroy_image(game->mlx, game->controls_menu.img);
+		game->controls_menu.img = NULL;
+	}
+	if (game->img.img)
+	{
+		mlx_destroy_image(game->mlx, game->img.img);
+		game->img.img = NULL;
 	}
 }
 
@@ -109,8 +124,9 @@ void	ft_error(int error_code, t_game *game)
 		ft_free_mem(game);
 		exit(EXIT_SUCCESS);
 	}
-	printf(RED"Error:\n"RST);
-	printf(WIT"%s"RST, ft_get_error_message(error_code));
+	ft_putstr_fd(RED"Error\n"RST, 2); 
+	ft_putstr_fd((char *)ft_get_error_message(error_code), 2);
+	ft_putstr_fd(RST, 2);
 	ft_free_mem(game);
 	exit(EXIT_FAILURE);
 }

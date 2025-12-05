@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:33:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/11/01 16:20:25 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:38:35 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	ft_flood_fill(char **map, int x, int y, t_game *game)
 	curr_char = map[y][x];
 	if (x < 0 || x >= game->map.width || y < 0 || y >= game->map.height)
 		ft_error(11, game);
-	if (curr_char == '1' || curr_char == '2' || curr_char == 'V')
+	if (curr_char == '2')
+		ft_error(11, game);
+	if (curr_char == '1' || curr_char == 'V')
 		return ;
 	if (x == 0 || x == game->map.width - 1
 		|| y == 0 || y == game->map.height - 1)

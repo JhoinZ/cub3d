@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:59:40 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:34:36 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ static void	ft_process_config_line(char *line, t_game *game, char **map_buffer)
 	else
 	{
 		if (game->map.elements_count == 6)
-			*map_buffer = ft_strjoin(*map_buffer, line);
+		{
+			*map_buffer = ft_strjoin_free(*map_buffer, line, 3);
+			if (!*map_buffer)
+				ft_error(10, game);
+		}
 		else if (ft_parse_element(line, game))
 		{
 			game->map.elements_count++;
