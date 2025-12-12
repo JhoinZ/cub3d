@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 19:19:34 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:45:19 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,12 @@ char		*ft_skipspace(char *str);
 int			ft_check_argv(char **av, int ac);
 void		ft_init_tools(t_game *game);
 
+/* Utils textures */
+int			check_walls(int *map_x, int *map_y, t_game *game);
+double		distance_factor(double distance);
+int			get_pixel_color(t_data *texture, int x, int y);
+void		draw_tile(t_game *game, int x, int y, char tile);
+
 /* Start menu */
 void		print_start(t_game *game);
 void		handle_start_menu_input(int keycode, t_game *game);
@@ -215,8 +221,6 @@ void		clear_screen(t_game *game, int color);
 void		ray_casting_loop(t_game *game);
 void		cast_ray_dda(t_game *game, t_ray_result *ray);
 void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
-double		distance_factor(double distance);
-int			get_pixel_color(t_data *texture, int x, int y);
 
 /* Errors */
 void		display_error(int n, char *msg);

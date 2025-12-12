@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:25:35 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/10/28 12:54:48 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:25:03 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t 	len2;
 	char	*sjoin;
 	size_t	j;
+
 	if (s1 != NULL)
 		len1 = ft_strlen(s1);
 	else

@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:59:16 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 19:12:15 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:33:27 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,7 @@ void	hit_loop(int *map_x, int *map_y, t_ray_result *ray, t_game *game)
 			*map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (*map_y >= 0 && *map_y < game->map.height
-			&& *map_x >= 0 && *map_x < game->map.width)
-		{
-			if (game->map.grid[*map_y][*map_x] >= '1' &&
-				game->map.grid[*map_y][*map_x] <= '9')
-				hit = 1;
-		}
-		else
+		if (check_walls(map_x, map_y, game))
 			hit = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 19:06:55 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:44:48 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ void	draw_map1(t_game *game, int rel_width, int rel_begin)
 		{
 			rel_width = i * ts + rel_begin;
 			rel_hegith = j * ts;
-			if (game->map.grid[j][i] > '0' && game->map.grid[j][i] <= '9')
-				draw_square(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFF81D8D0}, ts);
-			else
-				draw_square(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFF084D6E}, ts);
-			draw_square2(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFFFFFF}, ts);
+			draw_tile(game, rel_width, rel_hegith, game->map.grid[j][i]);
 			j++;
 		}
 		i++;
@@ -57,36 +53,10 @@ void	draw_map2(t_game *game, int rel_height, int rel_begin)
 		{
 			rel_width = i * ts;
 			rel_height = j * ts + rel_begin;
-			if (game->map.grid[j][i] > '0' && game->map.grid[j][i] <= '9')
-				draw_square(&game->img, (t_text_pos){rel_width, rel_height, 0xFF81D8D0}, ts);
-			else
-				draw_square(&game->img, (t_text_pos){rel_width, rel_height, 0xFF084D6E}, ts);
-			draw_square2(&game->img,
-				(t_text_pos){rel_width, rel_height, 0xFFFFFF}, ts);
+			draw_tile(game, rel_width, rel_height, game->map.grid[j][i]);
 			j++;
 		}
 		i++;
-	}
-}
-
-void	print_menu(t_game *game)
-{
-	int			x;
-	int			y;
-	t_text_pos	hint;
-
-	clear_screen(game, 0x000000);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-	x = (WIDTH - game->controls_menu.width) / 2;
-	y = (HEIGHT - game->controls_menu.height) / 2;
-	mlx_put_image_to_window(game->mlx, game->win,
-		game->controls_menu.img, x, y);
-	if (game->prev_state == STATE_START)
-	{
-		hint.x = WIDTH / 2 - 75;
-		hint.y = HEIGHT - 50;
-		hint.color = 0xFF0000;
-		draw_bold_text(game, hint, "Press TAB to return");
 	}
 }
 
@@ -112,7 +82,8 @@ void	print_map(t_game *game)
 		draw_map2(game, game->map.tile_size, ps);
 	}
 	ps = (int)game->map.tile_size * 0.25;
-	draw_square(&game->img, (t_text_pos){(pos_x - ps / 2), (pos_y - ps / 2), 0x00FF00}, ps);
+	draw_square(&game->img,
+		(t_text_pos){(pos_x - ps / 2), (pos_y - ps / 2), 0x00FF00}, ps);
 }
 
 void	draw_mini_map(t_game *game, double step_x, double step_y)

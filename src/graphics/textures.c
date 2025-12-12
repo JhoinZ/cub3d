@@ -6,13 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 19:22:30 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:24:22 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	get_wall_c(int side, double stepX, double stepY)
+int	get_wall_c(int side, double step_x, double step_y)
 {
 	int	index;
 
