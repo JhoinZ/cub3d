@@ -6,13 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:56:13 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:15:44 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	load_texture(t_game *game, t_data *data)
+void	load_menu_texture(t_game *game, t_data *data)
 {
 	int	width;
 	int	height;
@@ -27,7 +27,7 @@ void	load_texture(t_game *game, t_data *data)
 	data->height = height;
 }
 
-void	load_textures(t_game *game)
+void	load_wall_texture(t_game *game)
 {
 	int	i;
 	int	width;
@@ -49,31 +49,6 @@ void	load_textures(t_game *game)
 	}
 }
 
-static void	ft_setup_main_image(t_game *game)
-{
-	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (game->img.img == NULL)
-		ft_error(4, game);
-	game->img.addr = mlx_get_data_addr(
-			game->img.img,
-			&game->img.bpp,
-			&game->img.line_length,
-			&game->img.endian);
-}
-
-static void	ft_setup_menu_background(t_game *game)
-{
-	game->menu_background.img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Menu_inicial.xpm",
-			&game->menu_background.width,
-			&game->menu_background.height);
-	if (game->menu_background.img)
-		game->menu_background.addr = mlx_get_data_addr(
-				game->menu_background.img, &game->menu_background.bpp,
-				&game->menu_background.line_length,
-				&game->menu_background.endian);
-}
-
 void	ft_setup_mlx_and_game(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -82,55 +57,51 @@ void	ft_setup_mlx_and_game(t_game *game)
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
 	if (game->win == NULL)
 		ft_error(4, game);
-	ft_setup_main_image(game);
-	load_textures(game);
-	load_texture(game, &game->controls_menu);
-	ft_setup_menu_background(game);
+	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (game->img.img == NULL)
+		ft_error(4, game);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
+			&game->img.line_length, &game->img.endian);
+	load_wall_texture(game);
+	load_menu_texture(game, &game->controls_menu);
+	game->menu_background.img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Menu_inicial.xpm", &game->menu_background.width,
+			&game->menu_background.height);
+	if (game->menu_background.img)
+		game->menu_background.addr = mlx_get_data_addr(
+				game->menu_background.img, &game->menu_background.bpp,
+				&game->menu_background.line_length,
+				&game->menu_background.endian);
 }
 
-static void	ft_set_direction_north(t_game *game)
+static void	ft_set_direction(t_game *game, char dir)
 {
-	game->player.dirY = -1.0;
-	game->player.planeX = 0.66;
-}
-
-static void	ft_set_direction_south(t_game *game)
-{
-	game->player.dirY = 1.0;
-	game->player.planeX = -0.66;
-}
-
-static void	ft_set_direction_east(t_game *game)
-{
-	game->player.dirX = 1.0;
-	game->player.planeY = 0.66;
-}
-
-static void	ft_set_direction_west(t_game *game)
-{
-	game->player.dirX = -1.0;
-	game->player.planeY = -0.66;
-}
-
-static void	ft_set_player_speeds(t_game *game)
-{
-	game->player.move_speed = 0.05f;
-	game->player.rot_speed = 0.07f;
-	game->player.run = 1;
+	if (dir == 'N')
+	{
+		game->player.dirY = -1.0;
+		game->player.planeX = 0.66;
+	}
+	else if (dir == 'S')
+	{
+		game->player.dirY = 1.0;
+		game->player.planeX = -0.66;
+	}
+	else if (dir == 'E')
+	{
+		game->player.dirX = 1.0;
+		game->player.planeY = 0.66;
+	}
+	else if (dir == 'W')
+	{
+		game->player.dirX = -1.0;
+		game->player.planeY = -0.66;
+	}
 }
 
 void	ft_init_player_vectors(t_game *game)
 {
-	char	dir;
-
-	dir = game->player.initial_dir;
-	if (dir == 'N')
-		ft_set_direction_north(game);
-	else if (dir == 'S')
-		ft_set_direction_south(game);
-	else if (dir == 'E')
-		ft_set_direction_east(game);
-	else if (dir == 'W')
-		ft_set_direction_west(game);
-	ft_set_player_speeds(game);
+	ft_set_direction(game, game->player.initial_dir);
+	game->player.move_speed = 0.05f;
+	game->player.rot_speed = 0.07f;
+	game->player.run = 1;
 }

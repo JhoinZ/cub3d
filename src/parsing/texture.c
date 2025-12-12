@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 16:55:56 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:43:45 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:03:15 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	ft_parse_rgb_component(char *s, int *out_value)
 	return (true);
 }
 
-static bool	ft_validate_rgb_parts(char **parts, t_game *game)
+static bool	ft_parse_and_validate_rgb(char **parts, int *rgb, t_game *game)
 {
 	if (!parts[0] || !parts[1] || !parts[2] || parts[3])
 	{
@@ -70,11 +70,6 @@ static bool	ft_validate_rgb_parts(char **parts, t_game *game)
 		ft_error(5, game);
 		return (false);
 	}
-	return (true);
-}
-
-static bool	ft_parse_all_rgb(char **parts, int *rgb, t_game *game)
-{
 	if (!ft_parse_rgb_component(parts[0], &rgb[0])
 		|| !ft_parse_rgb_component(parts[1], &rgb[1])
 		|| !ft_parse_rgb_component(parts[2], &rgb[2]))
@@ -112,11 +107,10 @@ void	ft_color(char *data, t_game *game, char *id)
 	parts = ft_split(ft_skipspace(data + 1), ',');
 	if (!parts)
 		ft_error(10, game);
-	ft_validate_rgb_parts(parts, game);
 	rgb[0] = 0;
 	rgb[1] = 0;
 	rgb[2] = 0;
-	ft_parse_all_rgb(parts, rgb, game);
+	ft_parse_and_validate_rgb(parts, rgb, game);
 	ft_assign_color(create_trgb(0, rgb[0], rgb[1], rgb[2]), id, game);
 	ft_free_split(parts);
 }

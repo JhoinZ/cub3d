@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:53:14 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 12:15:44 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ typedef struct s_game {
 	t_data		img;
 	t_player	player;
 	t_map		map;
-	int			frame_count;
+	int			fps;
+	long int	last_frame_time;
 	int			minimap_scale;
 	t_data		texture[4];
 	t_data		controls_menu;
@@ -161,7 +162,8 @@ void		ft_validate_map(t_game *game);
 /* setup/init helpers (parser -> game bridging) */
 void		ft_setup_mlx_and_game(t_game *game);
 void		ft_init_player_vectors(t_game *game);
-void		load_textures(t_game *game);
+void		load_wall_texture(t_game *game);
+void		load_menu_texture(t_game *game, t_data *data);
 
 /* Utils parsing */
 int			ft_checkspace(char *line);
@@ -229,5 +231,6 @@ void		free_map(t_map *map);
 void		wait(long time_to_sleep);
 long int	get_time(void);
 long int	get_diff_time(long int init_time);
+void		display_fps(t_game *game);
 
 #endif

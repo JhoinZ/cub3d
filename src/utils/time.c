@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:57 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/04 17:04:07 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 11:41:40 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,25 @@ long int	get_diff_time(long int init_time)
 	if (curr_time == 0)
 		return (0);
 	return (curr_time - init_time);
+}
+
+void	display_fps(t_game *game)
+{
+	long int	current_time;
+	long int	delta;
+	char		*fps_str;
+
+	current_time = get_time();
+	delta = current_time - game->last_frame_time;
+	if (delta > 0)
+		game->fps = 1000 / delta;
+	game->last_frame_time = current_time;
+	fps_str = ft_itoa(game->fps);
+	if (fps_str)
+	{
+		mlx_string_put(game->mlx, game->win,
+			WIDTH - 50, HEIGHT - 20, 0x00FF00,
+			fps_str);
+		free(fps_str);
+	}
 }

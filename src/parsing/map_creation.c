@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/05 16:13:36 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 11:56:49 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,27 @@ static int	ft_check_player_pos(char c, t_game *game, int col, int row)
 	return (0);
 }
 
-static void	ft_scan_row(t_game *game, int row_index, int *player_count)
-{
-	int	col_index;
-	int	row_length;
-
-	row_length = ft_strlen(game->map.grid[row_index]);
-	if (row_length > game->map.width)
-		game->map.width = row_length;
-	col_index = 0;
-	while (game->map.grid[row_index][col_index])
-	{
-		*player_count += ft_check_player_pos(game->map.grid
-			[row_index][col_index], game, col_index, row_index);
-		col_index++;
-	}
-}
-
-void	ft_scan_and_validate(t_game *game)
+static void	ft_scan_and_validate(t_game *game)
 {
 	int	player_count;
 	int	row_index;
+	int	col_index;
+	int	row_length;
 
 	player_count = 0;
 	row_index = 0;
 	while (game->map.grid[row_index])
 	{
-		ft_scan_row(game, row_index, &player_count);
+		row_length = ft_strlen(game->map.grid[row_index]);
+		if (row_length > game->map.width)
+			game->map.width = row_length;
+		col_index = 0;
+		while (game->map.grid[row_index][col_index])
+		{
+			player_count += ft_check_player_pos(game->map.grid
+				[row_index][col_index], game, col_index, row_index);
+			col_index++;
+		}
 		row_index++;
 	}
 	game->map.height = row_index;
@@ -60,32 +54,28 @@ void	ft_scan_and_validate(t_game *game)
 		ft_error(9, game);
 }
 
-static void	ft_alloc_new_row(t_game *game, char **new_grid, int row)
+static void	ft_process_row(t_game *game, char **new_grid, int r)
 {
-	new_grid[row] = malloc(sizeof(char) * (game->map.width + 1));
-	if (!new_grid[row])
+	int	col;
+	int	orig_len;
+
+	new_grid[r] = malloc(sizeof(char) * (game->map.width + 1));
+	if (!new_grid[r])
 	{
 		ft_free_split(new_grid);
 		ft_error(10, game);
 	}
-}
-
-static void	ft_fill_row(t_game *game, char **new_grid, int row)
-{
-	int	col;
-	int	original_len;
-
-	original_len = ft_strlen(game->map.grid[row]);
+	orig_len = ft_strlen(game->map.grid[r]);
 	col = 0;
 	while (col < game->map.width)
 	{
-		if (col < original_len)
-			new_grid[row][col] = game->map.grid[row][col];
+		if (col < orig_len)
+			new_grid[r][col] = game->map.grid[r][col];
 		else
-			new_grid[row][col] = '2';
+			new_grid[r][col] = '2';
 		col++;
 	}
-	new_grid[row][col] = '\0';
+	new_grid[r][col] = '\0';
 }
 
 void	ft_rectify_map(t_game *game)
@@ -99,8 +89,7 @@ void	ft_rectify_map(t_game *game)
 	r = 0;
 	while (r < game->map.height)
 	{
-		ft_alloc_new_row(game, new_grid, r);
-		ft_fill_row(game, new_grid, r);
+		ft_process_row(game, new_grid, r);
 		r++;
 	}
 	new_grid[r] = NULL;

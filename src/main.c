@@ -6,33 +6,35 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:07:42 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/05 16:16:20 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 11:47:55 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	game_loop(void *param)
+static void	handle_menu_states(t_game *game)
 {
-	t_game	*game;
-	
-	game = (t_game *)param;
 	if (game->state == STATE_START)
-	{
 		print_start(game);
-		return (0);
-	}
 	else if (game->state == STATE_MENU)
-	{
 		print_menu(game);
-		return (0);
-	}
 	else if (game->state == STATE_MAP)
 	{
 		clear_screen(game, 0x000C0C0C);
 		ray_casting_loop(game);
 		print_map(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	}
+}
+
+int	game_loop(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (game->state != STATE_GAME)
+	{
+		handle_menu_states(game);
 		return (0);
 	}
 	player_actions(game);
