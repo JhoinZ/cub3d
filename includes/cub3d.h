@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 12:15:44 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:08:34 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void		ft_init_tools(t_game *game);
 /* Start menu */
 void		print_start(t_game *game);
 void		handle_start_menu_input(int keycode, t_game *game);
+void		draw_bold_text(t_game *game, t_text_pos pos, char *text);
 
 /* Hook functions */
 int			xclose(t_game *game);

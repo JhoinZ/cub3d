@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   welcome.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 16:44:23 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:53:14 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:42:41 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_bold_text(t_game *game, t_text_pos pos, char *text)
+void	draw_bold_text(t_game *game, t_text_pos pos, char *text)
 {
 	mlx_string_put(game->mlx, game->win, pos.x, pos.y, pos.color, text);
 	mlx_string_put(game->mlx, game->win, pos.x + 1, pos.y, pos.color, text);
