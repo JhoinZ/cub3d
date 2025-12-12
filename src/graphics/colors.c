@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:49:45 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/06 17:03:40 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 13:23:49 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -26,6 +25,7 @@ int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
+
 /**
  * @return 1 or 0 if the color has brightness
  */
@@ -43,12 +43,12 @@ int	is_light(int color)
 	return (luminance > 0.7);
 }
 
-int choose_color(int side)
+int	choose_color(int side)
 {
-    if (side == 0) 
-        return 0x00FF00 / 2; // Red for x-side (vertical walls)
-    else 
-        return 0x00FF00; // Green for y-side (horizontal walls)
+	if (side == 0)
+		return (0x00FF00 / 2);
+	else
+		return (0x00FF00);
 }
 
 /*

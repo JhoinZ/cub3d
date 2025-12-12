@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_figures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:36 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/11/24 15:46:11 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 13:01:45 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_square(t_data *img, int x, int y, int size, int color)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (i < size)
 	{
@@ -33,7 +33,7 @@ void	draw_square(t_data *img, int x, int y, int size, int color)
 void	draw_square2(t_data *img, int x, int y, int size, int color)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < size)
 	{

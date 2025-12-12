@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/02 12:56:27 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 13:25:11 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 double	distance_factor(double distance)
 {
@@ -24,6 +23,7 @@ double	distance_factor(double distance)
 		factor = 1.0;
 	return (factor);
 }
+
 int	get_wall_c(int side, double stepX, double stepY)
 {
 	int	index;
@@ -48,11 +48,11 @@ int	get_wall_c(int side, double stepX, double stepY)
 int	get_pixel_color(t_data *texture, int x, int y)
 {
 	char	*dst;
-	
+
 	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
 		return (0);
 	dst = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
-	return (*(int*)dst);
+	return (*(int *) dst);
 }
 
 void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
@@ -63,7 +63,6 @@ void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
 
 	texture = &game->texture[v->index];
 	tex_width = texture->width;
-	
 	if (ray.side == 0)
 		wall_x = ray.hit_y;
 	else
