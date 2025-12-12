@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 13:25:11 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:03:41 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ double	distance_factor(double distance)
 	return (factor);
 }
 
-int	get_wall_c(int side, double stepX, double stepY)
+int	get_wall_c(int side, double step_x, double step_y)
 {
 	int	index;
 
 	if (side == 0)
 	{
-		if (stepX > 0)
+		if (step_x > 0)
 			index = 3;
 		else
 			index = 2;
 	}
 	else
 	{
-		if (stepY > 0)
+		if (step_y > 0)
 			index = 1;
 		else
 			index = 0;
@@ -69,9 +69,9 @@ void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
 		wall_x = ray.hit_x;
 	wall_x -= floor(wall_x);
 	v->tex_x = (int)(wall_x * (double)tex_width);
-	if (ray.side == 0 && ray.dirX < 0)
+	if (ray.side == 0 && ray.dir_x < 0)
 		v->tex_x = tex_width - v->tex_x - 1;
-	if (ray.side == 1 && ray.dirY > 0)
+	if (ray.side == 1 && ray.dir_y > 0)
 		v->tex_x = tex_width - v->tex_x - 1;
 }
 
@@ -111,12 +111,14 @@ void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
 {
 	if (ray.distance < 0.1)
 		ray.distance = 0.1;
-	v->index = get_wall_c(ray.side, ray.stepX, ray.stepY);
+	v->index = get_wall_c(ray.side, ray.step_x, ray.step_y);
 	calc_texture_data(game, v, ray);
 	draw_wall_column(v, game, ray);
 	if (v->y_end - v->y_start < HEIGHT)
 	{
-		draw_vertical_line(game, v->x, 0, v->y_start - 1, game->map.ceiling_color);
-		draw_vertical_line(game, v->x, v->y_end - 3, HEIGHT - 1, game->map.floor_color);
+		draw_vertical_line(game, (t_text_pos){v->x, 0, game->map.ceiling_color},
+			0, v->y_start - 1);
+		draw_vertical_line(game, (t_text_pos){v->x, 0, game->map.floor_color},
+			v->y_end - 3, HEIGHT - 1);
 	}
 }

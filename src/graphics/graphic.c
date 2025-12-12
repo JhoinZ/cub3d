@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 17:46:08 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:06:55 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	draw_map1(t_game *game, int rel_width, int rel_begin)
 			rel_width = i * ts + rel_begin;
 			rel_hegith = j * ts;
 			if (game->map.grid[j][i] > '0' && game->map.grid[j][i] <= '9')
-				draw_square(&game->img, rel_width, rel_hegith, ts, 0xFF81D8D0);
+				draw_square(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFF81D8D0}, ts);
 			else
-				draw_square(&game->img, rel_width, rel_hegith, ts, 0xFF084D6E);
-			draw_square2(&game->img, rel_width, rel_hegith, ts, 0xFFFFFF);
+				draw_square(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFF084D6E}, ts);
+			draw_square2(&game->img, (t_text_pos){rel_width, rel_hegith, 0xFFFFFF}, ts);
 			j++;
 		}
 		i++;
@@ -58,10 +58,11 @@ void	draw_map2(t_game *game, int rel_height, int rel_begin)
 			rel_width = i * ts;
 			rel_height = j * ts + rel_begin;
 			if (game->map.grid[j][i] > '0' && game->map.grid[j][i] <= '9')
-				draw_square(&game->img, rel_width, rel_height, ts, 0xFF81D8D0);
+				draw_square(&game->img, (t_text_pos){rel_width, rel_height, 0xFF81D8D0}, ts);
 			else
-				draw_square(&game->img, rel_width, rel_height, ts, 0xFF084D6E);
-			draw_square2(&game->img, rel_width, rel_height, ts, 0xFFFFFF);
+				draw_square(&game->img, (t_text_pos){rel_width, rel_height, 0xFF084D6E}, ts);
+			draw_square2(&game->img,
+				(t_text_pos){rel_width, rel_height, 0xFFFFFF}, ts);
 			j++;
 		}
 		i++;
@@ -99,22 +100,22 @@ void	print_map(t_game *game)
 	if (WIDTH / game->map.tile_size > (game->map.width + 1))
 	{
 		ps = (WIDTH / 2) - (game->map.tile_size * game->map.width / 2);
-		pos_x = game->player.posX * game->map.tile_size + ps;
-		pos_y = game->player.posY * game->map.tile_size;
+		pos_x = game->player.pos_x * game->map.tile_size + ps;
+		pos_y = game->player.pos_y * game->map.tile_size;
 		draw_map1(game, game->map.tile_size, ps);
 	}
 	else
 	{
 		ps = (HEIGHT / 2) - (game->map.tile_size * game->map.height / 2);
-		pos_x = game->player.posX * game->map.tile_size;
-		pos_y = game->player.posY * game->map.tile_size + ps;
+		pos_x = game->player.pos_x * game->map.tile_size;
+		pos_y = game->player.pos_y * game->map.tile_size + ps;
 		draw_map2(game, game->map.tile_size, ps);
 	}
 	ps = (int)game->map.tile_size * 0.25;
-	draw_square(&game->img, (pos_x - ps / 2), (pos_y - ps / 2), ps, 0x00FF00);
+	draw_square(&game->img, (t_text_pos){(pos_x - ps / 2), (pos_y - ps / 2), 0x00FF00}, ps);
 }
 
-void	draw_mini_map(t_game *game, double stepX, double stepY)
+void	draw_mini_map(t_game *game, double step_x, double step_y)
 {
 	double	x;
 	double	y;
@@ -122,22 +123,22 @@ void	draw_mini_map(t_game *game, double stepX, double stepY)
 	double	start_y;
 
 	start_x = WIDTH * 0.05;
-	x = game->player.posX - 5;
-	while (x <= game->player.posX + 5)
+	x = game->player.pos_x - 5;
+	while (x <= game->player.pos_x + 5)
 	{
-		y = game->player.posY - 5;
+		y = game->player.pos_y - 5;
 		start_y = HEIGHT * 0.75;
-		while (y <= game->player.posY + 5)
+		while (y <= game->player.pos_y + 5)
 		{
 			if (y >= 0 && x >= 0 && x < game->map.width && y < game->map.height
 				&& game->map.grid[(int)y][(int)x] > '0'
 				&& game->map.grid[(int)y][(int)x] <= '9')
-				draw_rectangle(&game->img, start_x, start_y,
-					stepX, stepY, 0xFF084D6E);
-			start_y += stepY;
+				draw_rectangle(&game->img,
+					(t_text_pos){start_x, start_y, 0xFF084D6E}, step_x, step_y);
+			start_y += step_y;
 			y++;
 		}
-		start_x += stepX;
+		start_x += step_x;
 		x++;
 	}
 }
@@ -153,10 +154,11 @@ void	print_mini_map(t_game *game)
 	width = WIDTH * 0.2 - start_x;
 	start_y = HEIGHT * 0.75;
 	heigth = HEIGHT * 0.95 - start_y;
-	draw_rectangle(&game->img, start_x, start_y, width, heigth, 0x000C0C0C);
+	draw_rectangle(&game->img, (t_text_pos){start_x, start_y, 0x000C0C0C},
+		width, heigth);
 	draw_mini_map(game, width / 11, heigth / 11);
 	start_x = width / 2 + start_x - width * 0.03;
 	start_y = heigth / 2 + start_y - heigth * 0.03;
-	draw_rectangle(&game->img, start_x, start_y, width * 0.03,
-		heigth * 0.03, 0x00ff00);
+	draw_rectangle(&game->img, (t_text_pos){start_x, start_y, 0x00ff00},
+		width * 0.03, heigth * 0.03);
 }

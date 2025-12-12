@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:43:07 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 12:15:44 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:07:28 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,23 @@ static void	ft_set_direction(t_game *game, char dir)
 {
 	if (dir == 'N')
 	{
-		game->player.dirY = -1.0;
-		game->player.planeX = 0.66;
+		game->player.dir_y = -1.0;
+		game->player.plane_x = 0.66;
 	}
 	else if (dir == 'S')
 	{
-		game->player.dirY = 1.0;
-		game->player.planeX = -0.66;
+		game->player.dir_y = 1.0;
+		game->player.plane_x = -0.66;
 	}
 	else if (dir == 'E')
 	{
-		game->player.dirX = 1.0;
-		game->player.planeY = 0.66;
+		game->player.dir_x = 1.0;
+		game->player.plane_y = 0.66;
 	}
 	else if (dir == 'W')
 	{
-		game->player.dirX = -1.0;
-		game->player.planeY = -0.66;
+		game->player.dir_x = -1.0;
+		game->player.plane_y = -0.66;
 	}
 }
 

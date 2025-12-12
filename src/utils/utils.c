@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 17:54:51 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:58:18 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_map(t_map *map)
 	}
 }
 
-int xclose(t_game *game)
+int	xclose(t_game *game)
 {
 	ft_error(0, game);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 18:21:40 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 11:56:49 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:06:55 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	ft_check_player_pos(char c, t_game *game, int col, int row)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		game->player.initial_dir = c;
-		game->player.posX = col + 0.5;
-		game->player.posY = row + 0.5;
+		game->player.pos_x = col + 0.5;
+		game->player.pos_y = row + 0.5;
 		return (1);
 	}
 	else if (c != '0' && c != '1' && c != ' ')
