@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 19:07:28 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:19:34 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ typedef struct s_vertical
 	int		index;
 	int		tex_x;
 	int		tex_y;
-	int		tex_pos;
-	int		color;
+	int		a_start;
+	int		a_end;
+	double	tex_pos;
 	double	step;
 }	t_vertical;
 
@@ -214,6 +215,8 @@ void		clear_screen(t_game *game, int color);
 void		ray_casting_loop(t_game *game);
 void		cast_ray_dda(t_game *game, t_ray_result *ray);
 void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
+double		distance_factor(double distance);
+int			get_pixel_color(t_data *texture, int x, int y);
 
 /* Errors */
 void		display_error(int n, char *msg);

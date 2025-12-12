@@ -6,25 +6,13 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:08:28 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 19:03:41 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:22:30 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-double	distance_factor(double distance)
-{
-	double	factor;
-
-	factor = distance / 10.0;
-	if (factor < 0.0)
-		factor = 0.0;
-	if (factor > 1.0)
-		factor = 1.0;
-	return (factor);
-}
-
-int	get_wall_c(int side, double step_x, double step_y)
+int	get_wall_c(int side, double stepX, double stepY)
 {
 	int	index;
 
@@ -43,16 +31,6 @@ int	get_wall_c(int side, double step_x, double step_y)
 			index = 0;
 	}
 	return (index);
-}
-
-int	get_pixel_color(t_data *texture, int x, int y)
-{
-	char	*dst;
-
-	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
-		return (0);
-	dst = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
-	return (*(int *) dst);
 }
 
 void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
@@ -75,36 +53,43 @@ void	calc_texture_data(t_game *game, t_vertical *v, t_ray_result ray)
 		v->tex_x = tex_width - v->tex_x - 1;
 }
 
-void	draw_wall_column(t_vertical *v, t_game *game, t_ray_result ray)
+void	wall_loop(t_vertical v, t_game *game, t_ray_result ray)
 {
 	t_data	*texture;
-	int		tex_y;
 	int		color;
-	double	step;
-	double	tex_pos;
+	int		tex_y;
 
-
-	int actual_start = v->y_start;
-	int actual_end = v->y_end;
-	if (actual_start < 0) actual_start = 0;
-	if (actual_end > HEIGHT) actual_end = HEIGHT;
-	texture = &game->texture[v->index];
-	step = (double)texture->height / (v->y_end - v->y_start);
-	if (v->y_start < 0)
-		tex_pos = -v->y_start * step;
-	else
-		tex_pos = 0;
-	while (actual_start < actual_end)
+	texture = &game->texture[v.index];
+	while (v.a_start < v.a_end)
 	{
-		tex_y = (int)tex_pos & (texture->height - 1);
-		tex_pos += step;
-		color = get_pixel_color(texture, v->tex_x, tex_y);
+		tex_y = (int)v.tex_pos & (texture->height - 1);
+		v.tex_pos += v.step;
+		color = get_pixel_color(texture, v.tex_x, tex_y);
 		color = add_shade(distance_factor(ray.distance), color);
 		if (ray.side == 1)
 			color = add_shade(0.1, color);
-		my_mlx_pixel_put(&game->img, v->x, actual_start, color);
-		actual_start++;
+		my_mlx_pixel_put(&game->img, v.x, v.a_start, color);
+		v.a_start++;
 	}
+}
+
+void	draw_wall_column(t_vertical *v, t_game *game, t_ray_result ray)
+{
+	t_data	*texture;
+
+	v->a_start = v->y_start;
+	v->a_end = v->y_end;
+	if (v->a_start < 0)
+		v->a_start = 0;
+	if (v->a_end > HEIGHT)
+		v->a_end = HEIGHT;
+	texture = &game->texture[v->index];
+	v->step = (double)texture->height / (v->y_end - v->y_start);
+	if (v->y_start < 0)
+		v->tex_pos = -v->y_start * v->step;
+	else
+		v->tex_pos = 0;
+	wall_loop(*v, game, ray);
 }
 
 void	draw_vertical(t_game *game, t_vertical *v, t_ray_result ray)
