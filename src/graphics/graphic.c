@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fosuna-g <fosuna-g@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:46:56 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 12:53:37 by fosuna-g         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:46:08 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,11 @@ void	draw_map2(t_game *game, int rel_height, int rel_begin)
 	}
 }
 
-void	draw_bold_text_menu(t_game *game, int x, int y, int color, char *text)
-{
-	mlx_string_put(game->mlx, game->win, x, y, color, text);
-	mlx_string_put(game->mlx, game->win, x + 1, y, color, text);
-	mlx_string_put(game->mlx, game->win, x, y + 1, color, text);
-	mlx_string_put(game->mlx, game->win, x + 1, y + 1, color, text);
-}
-
 void	print_menu(t_game *game)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	t_text_pos	hint;
 
 	clear_screen(game, 0x000000);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
@@ -88,8 +81,12 @@ void	print_menu(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win,
 		game->controls_menu.img, x, y);
 	if (game->prev_state == STATE_START)
-		draw_bold_text_menu(game, WIDTH / 2 - 75, HEIGHT - 50,
-			0xFF0000, "Press TAB to return");
+	{
+		hint.x = WIDTH / 2 - 75;
+		hint.y = HEIGHT - 50;
+		hint.color = 0xFF0000;
+		draw_bold_text(game, hint, "Press TAB to return");
+	}
 }
 
 void	print_map(t_game *game)
@@ -135,7 +132,8 @@ void	draw_mini_map(t_game *game, double stepX, double stepY)
 			if (y >= 0 && x >= 0 && x < game->map.width && y < game->map.height
 				&& game->map.grid[(int)y][(int)x] > '0'
 				&& game->map.grid[(int)y][(int)x] <= '9')
-				draw_rectangle(&game->img, start_x, start_y, stepX, stepY, 0xFF084D6E);
+				draw_rectangle(&game->img, start_x, start_y,
+					stepX, stepY, 0xFF084D6E);
 			start_y += stepY;
 			y++;
 		}

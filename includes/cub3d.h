@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fosuna-g <fosuna-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/04 16:53:14 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:44:10 by fosuna-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void		ft_init_tools(t_game *game);
 /* Start menu */
 void		print_start(t_game *game);
 void		handle_start_menu_input(int keycode, t_game *game);
+void		draw_bold_text(t_game *game, t_text_pos pos, char *text);
 
 /* Hook functions */
 int			xclose(t_game *game);
