@@ -6,22 +6,11 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 11:50:00 by fosuna-g          #+#    #+#             */
-/*   Updated: 2025/12/12 18:58:18 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/14 12:05:44 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	display_error(int n, char *msg)
-{
-	ft_putstr_fd("\n========= \033[0;31mError\033[0m =========\n", 2);
-	if (n == 0 && msg)
-	{
-		ft_putstr_fd("   ➤ ", 2);
-		ft_putstr_fd(msg, 2);
-		ft_putstr_fd("\n", 2);
-	}
-}
 
 void	free_textures(t_game *game)
 {
