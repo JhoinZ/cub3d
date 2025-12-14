@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:25:35 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/12 19:25:03 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/13 15:32:47 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,26 @@ char	*jointime(char *sjoin, const char *s2, size_t j)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t 	len1;
-	size_t 	len2;
+	size_t	len1;
+	size_t	len2;
 	char	*sjoin;
 	size_t	j;
 
+	len1 = 0;
+	len2 = 0;
 	if (s1 != NULL)
 		len1 = ft_strlen(s1);
-	else
-		len1 = 0;
 	if (s2 != NULL)
 		len2 = ft_strlen(s2);
-	else
-		len2 = 0;
 	if (len1 == 0 && len2 == 0)
 		return (NULL);
 	sjoin = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!sjoin)
 		return (NULL);
-	j = 0;
-	if (s1 != NULL)
-	{
-		while (j < len1)
-		{
-			sjoin[j] = s1[j];
-			j++;
-		}
-	}
-	sjoin = jointime(sjoin, s2, j);
+	j = -1;
+	while (s1 != NULL && ++j < len1)
+		sjoin[j] = s1[j];
+	sjoin = jointime(sjoin, s2, len1);
 	sjoin[len1 + len2] = '\0';
 	return (sjoin);
 }
