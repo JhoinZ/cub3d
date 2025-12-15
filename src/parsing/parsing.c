@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 19:12:45 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/15 12:27:46 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/15 12:59:03 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ static void	ft_process_config_line(t_game *game, char **map_buffer)
 		{
 			game->map.elements_count++;
 			free(game->line);
+			game->line = NULL;
 		}
 		else
-		{
-			free(game->line);
 			ft_error(5, game);
-		}
 	}
 }
 
