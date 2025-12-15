@@ -4,7 +4,7 @@ EA ./textures/SimpleLibraryWall.xpm
 NO ./textures/WindowLibrary.xpm
 
 C 12,12,12
-F 25,25,25
+F 256,25,25
 
         1111111111111111111111111
         1000000000110000000000001

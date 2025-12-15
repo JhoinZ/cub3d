@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:08:18 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/14 12:06:09 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/15 12:25:07 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ typedef struct s_game
 	int				menu_selection;
 	t_game_state	state;
 	t_game_state	prev_state;
+	char			*line;
+	int				fd_config;
 }	t_game;
 
 /* parsing functions */
@@ -223,6 +225,7 @@ void		cast_ray_dda(t_game *game, t_ray_result *ray);
 void		draw_vertical(t_game *game, t_vertical *v, t_ray_result ray);
 
 /* Errors */
+void		display_error(int n, char *msg);
 void		ft_error(int error_code, t_game *game);
 void		ft_error_light(int error_code);
 void		ft_free_mem(t_game *game);
