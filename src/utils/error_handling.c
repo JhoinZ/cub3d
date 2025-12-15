@@ -6,7 +6,7 @@
 /*   By: fsaffiri <fsaffiri@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:29:06 by fsaffiri          #+#    #+#             */
-/*   Updated: 2025/12/15 12:27:57 by fsaffiri         ###   ########.fr       */
+/*   Updated: 2025/12/15 12:46:38 by fsaffiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	ft_free_mem(t_game *game)
 	if (game->line != NULL)
 		free(game->line);
 	if (game->fd_config != -1)
+	{
 		close(game->fd_config);
+		get_next_line(game->fd_config);
+	}
 	while (++i < 4)
 		if (game->map.textures[i] != NULL)
 			free(game->map.textures[i]);
