@@ -12,25 +12,30 @@
 
 #include "cub3d.h"
 
-void	ft_flood_fill(char **map, int x, int y, t_game *game)
+int	ft_flood_fill(char **map, int x, int y, t_game *game)
 {
 	char	curr_char;
 
-	curr_char = map[y][x];
 	if (x < 0 || x >= game->map.width || y < 0 || y >= game->map.height)
-		ft_error(11, game);
+		return (1);
+	curr_char = map[y][x];
 	if (curr_char == '2')
-		ft_error(11, game);
+		return (1);
 	if (curr_char == '1' || curr_char == 'V')
-		return ;
+		return (0);
 	if (x == 0 || x == game->map.width - 1
 		|| y == 0 || y == game->map.height - 1)
-		ft_error(11, game);
+		return (1);
 	map[y][x] = 'V';
-	ft_flood_fill(map, x + 1, y, game);
-	ft_flood_fill(map, x - 1, y, game);
-	ft_flood_fill(map, x, y + 1, game);
-	ft_flood_fill(map, x, y - 1, game);
+	if (ft_flood_fill(map, x + 1, y, game))
+		return (1);
+	if (ft_flood_fill(map, x - 1, y, game))
+		return (1);
+	if (ft_flood_fill(map, x, y + 1, game))
+		return (1);
+	if (ft_flood_fill(map, x, y - 1, game))
+		return (1);
+	return (0);
 }
 
 char	**ft_copy_map_grid(char **map, t_game *game)
@@ -56,9 +61,12 @@ char	**ft_copy_map_grid(char **map, t_game *game)
 void	ft_validate_map(t_game *game)
 {
 	char	**tmp_map;
+	int		error;
 
 	tmp_map = ft_copy_map_grid(game->map.grid, game);
-	ft_flood_fill(tmp_map, (int)game->player.pos_x,
-		(int)game->player.pos_y, game);
+	error = ft_flood_fill(tmp_map, (int)game->player.pos_x,
+			(int)game->player.pos_y, game);
 	ft_free_split(tmp_map);
+	if (error)
+		ft_error(11, game);
 }
